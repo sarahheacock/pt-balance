@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Dropzone from 'react-dropzone';
+
 import { Button, Form, FormControl, ControlLabel, FormGroup, Checkbox } from 'react-bootstrap';
 
 
@@ -24,21 +26,12 @@ const EditForm = (props) => {
       if(Array.isArray(dataObj[k])){
         const formItem = (k === "carousel") ?
           dataObj[k].map((key, i) => (
-            (key === '') ?
-              <FormControl
-                key={`${k}-${i}`}
-                name={`${k}-${i}`}
-                type={formInfo[k]["type"]}
-                componentClass={formInfo[k]["componentClass"]}
-                value={key}
-                onChange={props.formChange}
-              />:
-              <div key={`${k}-${i}`} name={`${k}-${i}`}>
-                {key}
-                <Button bsStyle="link" name={`${k}-${i}`} onClick={props.formDelete}>
-                  -
-                </Button>
-              </div>
+            <div key={`${k}-${i}`} name={`${k}-${i}`}>
+              {key}
+              <Button bsStyle="link" name={`${k}-${i}`} onClick={props.formDelete}>
+                -
+              </Button>
+            </div>
           )):
           dataObj[k].map((key, i) => (
               <FormControl
@@ -59,9 +52,13 @@ const EditForm = (props) => {
               {formItem}
             </FormGroup>
 
-            <Button bsStyle="link" name={k} onClick={props.formAdd}>
-              +
-            </Button>
+            <Dropzone
+              multiple={false}
+              accept="image/*"
+              onDrop={props.formAdd.bind(this)}>
+              name={k}
+              <p>Drop an image or click to select a file to upload.</p>
+            </Dropzone>
           </div>
         );
       }

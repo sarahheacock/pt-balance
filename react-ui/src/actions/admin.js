@@ -82,20 +82,31 @@ export const postData = (url, newData) => {
     }, true);
     if(!valid) return dispatch(updateState({ message: errorStatus.formError }));
 
-
+    console.log("newData", newData);
     return axios.post(url, newData)
       .then(response => {
         if(response.data.success === false){
           dispatch(updateState({ message: errorStatus.expError }));
         }
         else {
+          // if(url.includes('cloudinary') && response.data.secure_url !== '') { //if uploading file from form
+          //   // let dataObj = {...newData.edit.dataObj};
+          //   // if (r) {
+          //     // dataObj.carousel.push(response.body.secure_url);
+          //     this.props.updateState({
+          //       message: 'yay!'
+          //     });
+          //   // }
+          // }
           if(url.includes('file')) { //if uploading file from form
-            let edit = {...newData.edit};
-            edit["dataObj"][newData.name][newData.index] = response.data.secure_url;
-            console.log("newEdit", edit);
-
+            let dataObj = {...newData.edit.dataObj};
+            dataObj.push(response.data.secure_url);
+            
             dispatch(updateState({
-              edit: edit
+              edit: {
+                ...newData.edit,
+                dataObj: dataObj
+              }
             }));
           }
           else if (url.includes('say')) { //if posting message

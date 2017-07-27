@@ -4,6 +4,9 @@ import { Modal } from 'react-bootstrap';
 
 import EditForm from '../forms/EditForm';
 
+import request from 'superagent';
+const CLOUDINARY_UPLOAD_PRESET = 'thosldom';
+const CLOUDINARY_UPLOAD_URL = ' https://api.cloudinary.com/v1_1/dhd1eov8v/image/upload';
 
 class EditModal extends React.Component {
   static propTypes = {
@@ -33,39 +36,54 @@ class EditModal extends React.Component {
       dataObj[name] = value;
     }
 
-    if(nameArr[0] === "carousel"){
-
-      this.props.postData(`/admin/edit/file?token=${this.props.user.token}`, {
-        edit: {
-          ...this.props.edit,
-          dataObj: dataObj
-        },
-        url: value.replace("C:\\fakepath\\", window.location.href),
-        name: name,
-        index: index
-      });
-    }
-    else {
-      this.props.updateState({
-        edit: {
-          ...this.props.edit,
-          dataObj: dataObj
-        }
-      });
-    }
-  }
-
-  onFormAdd = (e) => {
-    let dataObj = {...this.props.edit.dataObj};
-    const name = e.target.name;
-    dataObj[name].push('');
-
     this.props.updateState({
       edit: {
         ...this.props.edit,
         dataObj: dataObj
       }
     });
+  }
+
+  onFormAdd = (files) => {
+    // let dataObj = {...this.props.edit.dataObj};
+    // const name = e.target.name;
+    const file = files[0].preview;
+    // console.log("file", {...file})
+    this.props.postData(`/admin/edit/file?token=${this.props.user.token}`, {
+      'file': file,
+      'edit': {...this.props.edit}
+    });
+
+    // this.props.postData(CLOUDINARY_UPLOAD_URL, {
+    //   'upload_preset': CLOUDINARY_UPLOAD_PRESET,
+    //   'file': file
+    // });
+
+    // ,
+    // 'edit': {...this.props.edit}
+
+
+    // if(name === "carousel"){
+      // let upload = request.post(CLOUDINARY_UPLOAD_URL)
+      //                   .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+      //                   .field('file', file);
+      //
+      // upload.end((err, response) => {
+      //   if (err) {
+      //     console.error(err);
+      //   }
+      //
+      //   if (response.body.secure_url !== '') {
+      //     dataObj.carousel.push(response.body.secure_url);
+      //     this.props.updateState({
+      //       edit: {
+      //         ...this.props.edit,
+      //         dataObj: dataObj
+      //       }
+      //     });
+      //   }
+      // });
+    // }
   }
 
   onFormDelete = (e) => {

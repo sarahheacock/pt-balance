@@ -50,7 +50,13 @@ adminRoutes.param("sectionID", function(req, res, next, id){
 
 //======================EDIT SECTIONS==============================
 adminRoutes.post("/file", function(req, res){
-  cloudinary.uploader.upload(req.body.url, function(result) {
+  // console.log(req.files);
+  // cloudinary.v2.uploader.upload(req.files.myImage.path, (error, result) => {
+  //   console.log(result);
+  //   res.json(result);
+  // });
+  // console.log(req.body.file);
+  cloudinary.uploader.upload(req.body.file, function(result) {
     console.log(result);
     res.json(result);
   });
