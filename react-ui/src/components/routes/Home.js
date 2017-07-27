@@ -21,7 +21,7 @@ const Home = (props) => {
         </Carousel>
       </header>
 
-
+      <div className="lower-content">
         <div className="main-content">
           <PageHeader className="head">Home</PageHeader>
           <div className="content">
@@ -37,7 +37,7 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-
+      </div>
 
     </div>
   );

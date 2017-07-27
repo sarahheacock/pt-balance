@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
-
 import EditForm from '../forms/EditForm';
 
 
@@ -24,22 +23,36 @@ class EditModal extends React.Component {
     let dataObj = {...this.props.edit.dataObj};
     const nameArr = e.target.name.split("-");
     const name = nameArr[0];
+    const index = nameArr[1]
     const value = e.target.value;
 
     if(Array.isArray(this.props.edit.dataObj[name])){
-      dataObj[name][nameArr[1]] = value;
+      dataObj[name][index] = value;
     }
     else {
       dataObj[name] = value;
     }
 
-    this.props.updateState({
-      edit: {
-        ...this.props.edit,
-        dataObj: dataObj
-      }
-    });
+    if(nameArr[0] === "carousel"){
 
+      this.props.postData(`/admin/edit/file?token=${this.props.user.token}`, {
+        edit: {
+          ...this.props.edit,
+          dataObj: dataObj
+        },
+        url: value.replace("C:\\fakepath\\", window.location.href),
+        name: name,
+        index: index
+      });
+    }
+    else {
+      this.props.updateState({
+        edit: {
+          ...this.props.edit,
+          dataObj: dataObj
+        }
+      });
+    }
   }
 
   onFormAdd = (e) => {

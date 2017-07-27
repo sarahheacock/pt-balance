@@ -43,6 +43,8 @@ export const putData = (url, newData) => {
     }, true);
     if(!valid) return dispatch(updateState({ message: errorStatus.formError }));
 
+    console.log(JSON.stringify(newData, undefined, 2))
+
     return axios.put(url, newData)
       .then(response => {
         console.log("response data", response.data);
@@ -80,13 +82,23 @@ export const postData = (url, newData) => {
     }, true);
     if(!valid) return dispatch(updateState({ message: errorStatus.formError }));
 
+
     return axios.post(url, newData)
       .then(response => {
         if(response.data.success === false){
           dispatch(updateState({ message: errorStatus.expError }));
         }
         else {
-          if (url.includes('say')) { //if posting message
+          if(url.includes('file')) { //if uploading file from form
+            let edit = {...newData.edit};
+            edit["dataObj"][newData.name][newData.index] = response.data.secure_url;
+            console.log("newEdit", edit);
+
+            dispatch(updateState({
+              edit: edit
+            }));
+          }
+          else if (url.includes('say')) { //if posting message
             dispatch(updateState({ message: errorStatus.messageSuccess }));
           }
           else if (url.includes('login')) { //if posting login
@@ -114,6 +126,9 @@ export const postData = (url, newData) => {
           dispatch(updateState({ message: errorStatus.loginError }));
         }
         else if (url.includes('edit')) { //if posting new page
+          dispatch(updateState({ message: errorStatus.loadError }));
+        }
+        else if (url.includes('file')) { //if posting new page
           dispatch(updateState({ message: errorStatus.loadError }));
         }
       });
