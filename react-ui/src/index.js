@@ -1,9 +1,62 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import App from './container/App';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk'
+import AdminReducer from './reducers/admin';
+
+import './stylesheets/index.css';
+
+import { initialData, initialUser, initialEdit, initialMessage, errorStatus } from './data/data';
+//=============================================================\
+
+
+const saveState = (state) => {
+  try {
+    if(state.message.error !== errorStatus.expError){
+      const serializedState = JSON.stringify({user: state.user});
+      localStorage.setItem('info', serializedState);
+    }
+    else { //do not save session if logged out
+      const serializedInitial = JSON.stringify({user: initialUser});
+      localStorage.setItem('info', serializedInitial);
+    }
+  }
+  catch(err){
+
+  }
+};
+
+const storage = JSON.parse(localStorage.info);
+
+const initial = (localStorage.info !== undefined) ?
+      {
+        message: initialMessage,
+        edit: initialEdit,
+        data: initialData,
+        user: storage.user,
+      }:
+      {
+        message: initialMessage,
+        edit: initialEdit,
+        data: initialData,
+        user: initialUser,
+      };
+
+const store = createStore(
+  AdminReducer, initial, applyMiddleware(thunk)
+);
+
+store.subscribe(() => {
+    saveState(store.getState());
+  });
+
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
