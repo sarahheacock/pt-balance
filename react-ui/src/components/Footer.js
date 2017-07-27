@@ -8,7 +8,7 @@ import EditButton from '../components/buttons/EditButton';
 
 const Footer = (props) => {
   return (
-    <footer className="text-center content">
+    <footer className="text-center content foot">
       <EditModal
         user={props.user}
         edit={props.edit}
@@ -21,19 +21,19 @@ const Footer = (props) => {
         updateState={props.updateState}
       />
 
-      <Row className="clearfix">
-        <Col sm={6}>
+      <Row className="clearfix content">
+        <Col sm={6} className="text-center">
           <h3>Around the Web</h3>
           <h3>
             <a className="icon" href="#" onClick={(e) => {if(e) e.preventDefault(); window.open("https://www.linkedin.com/in/nancy-darr-968364b");}}>
-              <i className="fa fa-linkedin" aria-hidden="true"></i>
+              <i className="fa fa-linkedin-square" aria-hidden="true"></i>
             </a>
             <a className="icon" href="#" onClick={(e) => {if(e) e.preventDefault(); window.open("https://www.facebook.com/groups/PediatricBalanceScale/");}}>
-              <i className="fa fa-facebook" aria-hidden="true"></i>
+              <i className="fa fa-facebook-square" aria-hidden="true"></i>
             </a>
           </h3>
         </Col>
-        <Col sm={6}>
+        <Col sm={6} className="text-center">
           <h3>Get More Info</h3>
           <h3>
             <EditButton

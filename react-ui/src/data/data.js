@@ -37,6 +37,59 @@ export const initialEdit = {
 // export const pageRoutes = [...Object.keys(initialData), 'login'];
 
 //===============info on user message form=========================================
+export const formData = {
+  carousel: {
+    type: 'file',
+    placeholder: 'Upload Rotating Image',
+    componentClass: 'input'
+  },
+  summary: {
+    type: 'text',
+    placeholder: 'Summary',
+    componentClass: 'textarea'
+  },
+  image: {
+    type: 'file',
+    placeholder: 'Upload Image',
+    componentClass: 'input'
+  },
+  education: {
+    type: 'text',
+    placeholder: 'Education (Bold Text)',
+    componentClass: 'input'
+  },
+  name: {
+    type: 'text',
+    placeholder: 'Full Name',
+    componentClass: 'input'
+  },
+  title: {
+    type: 'text',
+    placeholder: 'Section Title',
+    componentClass: 'input'
+  },
+  description: {
+    type: 'text',
+    placeholder: 'Summary',
+    componentClass: 'textarea'
+  },
+  authors: {
+    type: 'text',
+    placeholder: 'Published Author',
+    componentClass: 'input'
+  },
+  link: {
+    type: 'text',
+    placeholder: 'Link to Article',
+    componentClass: 'input'
+  },
+  date: {
+    type: 'text',
+    placeholder: 'Date Published',
+    componentClass: 'input'
+  }
+}
+
 export const loginData = {
   username: {
     type: 'text',

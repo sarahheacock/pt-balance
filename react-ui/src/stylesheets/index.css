@@ -1,9 +1,51 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
   background-color: WhiteSmoke;
+  color: DarkSlateGray;
   position: relative;
+}
+
+.brand {
+  color: #fd5c63
+}
+
+p {
+  color: DimGray;
+}
+
+b {
+  color: DarkSlateGray;
+}
+
+a {
+  color: DimGray;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: DimGray;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+/*a:hover {
+  color: #53868B;
+}*/
+
+.head {
+  color: DarkSlateGray;
 }
 
 .container-fluid {
@@ -26,13 +68,15 @@ body {
   overflow-x: hidden;
 }
 
-/*nabar styling*/
-.navbar-default .navbar-nav > li > a {
-    color: DimGray;
-    text-align: center;
+
+
+.login {
+    color: #53868B;
+    /*text-align: center;*/
 }
+
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color: black;
+    color: #53868B;
 }
 
 .nav-tabs > li.active > a:focus {
@@ -45,9 +89,9 @@ body {
   position: sticky;
 }
 
-.carousel-content {
+/*.carousel-content {
   height: 100%;
-}
+}*/
 
 .carousel-control.left {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
@@ -58,21 +102,29 @@ body {
 }
 
 header {
-  position: sticky;
-  width: 90%;
-  height: 70vh;
+  background-size: cover;
+  background-position: center top;
+  height: 100vh;
+  background-attachment: fixed;
+  width: 100%;
+  padding: 0px;
+  /*position: sticky;
+  width: 100%;
+  height: 100vh;
   top: 0;
   left: 0px;
   right: 0px;
-  margin: auto;
+  margin: auto;*/
   z-index: -1;
   overflow-x: hidden;
 }
 
-.carouselImg {
+/*.carouselImg {
   margin: 0 auto;
+  width: 100%;
+  padding: 2%;
 
-}
+}*/
 
 .summary {
   max-width: 90%;
@@ -82,11 +134,11 @@ header {
 }
 
 .lower-content {
-  background: WhiteSmoke;
+  /*background: WhiteSmoke;
   height: 100%;
 
-  width: 100%;
-  padding-top: 2%;
+  width: 100%;*/
+  /*padding-top: 2%;*/
 }
 
 .about {
@@ -101,7 +153,8 @@ header {
 
 .content {
   max-width: 700px;
-  margin: 0 auto;
+
+  margin: 2%;
 }
 
 .well:hover {
@@ -115,30 +168,35 @@ a:hover{
 
 
 img{
-  width: 100%;
-  padding: 2%;
+ max-width: 200px;
+ margin: 0 auto;
+}
 
-  margin: 0 auto;
+i {
+  color: #53868B;
+  margin: 1%;
 }
 
 .icon {
   padding: 0.5%;
 }
 
-.fafacebook{
+.fa-facebook-square:hover{
   color: #3b5998;
+  background-color: White;
 }
 
-.falinked{
+.fa-linkedin-square:hover{
   color: #0077B5;
+  background-color: White;
 }
 
-.faemail{
+.fa-envelope:hover{
   color: rgb(64, 153, 255);
 }
 
 .link:hover{
-  color: DarkSlateGray;
+  color: #53868B;
 }
 
 footer {
@@ -155,9 +213,8 @@ footer {
 }
 
 .foot {
-
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-bottom: 5%;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -180,5 +237,5 @@ footer {
 }
 
 nav > li {
-  color: DarkSlateGray
+  color: #53868B
 }

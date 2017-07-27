@@ -15,13 +15,13 @@ import { initialData, initialUser, initialEdit, initialMessage, errorStatus } fr
 
 const saveState = (state) => {
   try {
-    if(state.message.error !== errorStatus.expError){
-      const serializedState = JSON.stringify({user: state.user});
-      localStorage.setItem('info', serializedState);
+    if(state.message !== errorStatus.expError){
+      const serializedState = JSON.stringify(state.user);
+      localStorage.setItem('user', serializedState);
     }
     else { //do not save session if logged out
-      const serializedInitial = JSON.stringify({user: initialUser});
-      localStorage.setItem('info', serializedInitial);
+      const serializedInitial = JSON.stringify(initialUser);
+      localStorage.setItem('user', serializedInitial);
     }
   }
   catch(err){
@@ -29,20 +29,12 @@ const saveState = (state) => {
   }
 };
 
-const storage = JSON.parse(localStorage.info);
-
-const initial = (localStorage.info !== undefined) ?
-      {
+const storage = (localStorage.user !== undefined) ? JSON.parse(localStorage.user) : initialUser;
+const initial = {
         message: initialMessage,
         edit: initialEdit,
         data: initialData,
-        user: storage.user,
-      }:
-      {
-        message: initialMessage,
-        edit: initialEdit,
-        data: initialData,
-        user: initialUser,
+        user: storage,
       };
 
 const store = createStore(
@@ -50,8 +42,8 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-    saveState(store.getState());
-  });
+  saveState(store.getState());
+});
 
 
 ReactDOM.render(

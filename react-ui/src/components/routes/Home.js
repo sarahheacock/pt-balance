@@ -21,9 +21,9 @@ const Home = (props) => {
         </Carousel>
       </header>
 
-      <div className="lower-content">
+
         <div className="main-content">
-          <PageHeader>Home</PageHeader>
+          <PageHeader className="head">Home</PageHeader>
           <div className="content">
             <p className="summary">{props.data[0]["summary"]}</p>
             <div className="text-center">
@@ -31,14 +31,13 @@ const Home = (props) => {
                 user={props.user}
                 dataObj={props.data[0]}
                 updateState={props.updateState}
-                pageSection={"home"}
                 title={"Edit"}
                 length={2}
               />
             </div>
           </div>
         </div>
-      </div>
+
 
     </div>
   );

@@ -56,7 +56,7 @@ adminAuthRoutes.post('/login', function(req, res, next) {
 
         res.json({
           admin: true,
-          id: token
+          token: token
         });
       }
     });

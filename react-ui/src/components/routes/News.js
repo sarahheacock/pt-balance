@@ -7,7 +7,7 @@ import EditButton from '../buttons/EditButton';
 
 const News = (props) => {
   const events = props.data.map((event, index) => (
-      <div key={`news${index}`}>
+      <div className="content" key={`news${index}`}>
         <div className="content">
           <Row className="clearfix">
             <h3>{event.title}</h3>
@@ -29,7 +29,7 @@ const News = (props) => {
 
   return (
     <div className="main-content">
-      <PageHeader>News and Events</PageHeader>
+      <PageHeader className="head">News and Events</PageHeader>
       {events}
 
     </div>

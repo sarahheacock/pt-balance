@@ -21,11 +21,17 @@ class EditModal extends React.Component {
 
   onFormChange = (e) => {
 
-    const name = e.target.name;
-    const value = (name === "carousel") ? e.target.value.split(',').map((c) => c.trim()) : e.target.value;
+    let dataObj = {...this.props.edit.dataObj};
+    const nameArr = e.target.name.split("-");
+    const name = nameArr[0];
+    const value = e.target.value;
 
-    let dataObj = {...this.props.dataObj};
-    dataObj[name] = value;
+    if(Array.isArray(this.props.edit.dataObj[name])){
+      dataObj[name][nameArr[1]] = value;
+    }
+    else {
+      dataObj[name] = value;
+    }
 
     this.props.updateState({
       edit: {
@@ -36,7 +42,34 @@ class EditModal extends React.Component {
 
   }
 
+  onFormAdd = (e) => {
+    let dataObj = {...this.props.edit.dataObj};
+    const name = e.target.name;
+    dataObj[name].push('');
 
+    this.props.updateState({
+      edit: {
+        ...this.props.edit,
+        dataObj: dataObj
+      }
+    });
+  }
+
+  onFormDelete = (e) => {
+    let dataObj = {...this.props.edit.dataObj};
+    const nameArr = e.target.name.split("-");
+    const name = nameArr[0];
+    const i = nameArr[1];
+
+    dataObj[name].splice(i, 1);
+
+    this.props.updateState({
+      edit: {
+        ...this.props.edit,
+        dataObj: dataObj
+      }
+    });
+  }
 
   render(){
 
@@ -60,6 +93,8 @@ class EditModal extends React.Component {
           <Modal.Body>
             <EditForm
               formChange={this.onFormChange}
+              formAdd={this.onFormAdd}
+              formDelete={this.onFormDelete}
               editData={editFunc}
               updateState={this.props.updateState}
 

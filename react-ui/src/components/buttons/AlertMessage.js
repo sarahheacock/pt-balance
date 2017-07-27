@@ -5,7 +5,7 @@ import { Alert } from 'react-bootstrap';
 import { errorStatus } from '../../data/data';
 
 const AlertMessage = (props) => {
-  const style = (props.message === errorStatus.messageSuccess) ? "default" : "warning";
+  const style = (props.message === errorStatus.messageSuccess) ? "info" : "warning";
 
   return (
     <div className="text-center">

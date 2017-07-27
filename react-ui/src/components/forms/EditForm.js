@@ -4,30 +4,80 @@ import { Button, Form, FormControl, ControlLabel, FormGroup, Checkbox } from 're
 
 
 import SubmitButtonSet from '../buttons/SubmitButtonSet';
-import { errorStatus, messageData } from '../../data/data';
+import { errorStatus, messageData, loginData, formData } from '../../data/data';
 
+
+const upper = (label) => {
+  return `${label.charAt(0).toUpperCase()}${label.slice(1)}*`;
+};
 
 const EditForm = (props) => {
+  const formInfo = {...messageData, ...loginData, ...formData};
 
   //======ALL OF THE FORM GROUPS===================================
   const formGroups = (props.edit.modalTitle === "Delete Content") ?
-
     <div className="text-center">Are you sure you want to delete this content?</div>:
+    Object.keys(props.edit.dataObj).map(k => {
 
-    Object.keys(messageData).map(k => {
-      if(k !== "_id"){
+      const dataObj = props.edit.dataObj;
+
+      if(Array.isArray(dataObj[k])){
+        const formItem = (k === "carousel") ?
+          dataObj[k].map((key, i) => (
+            (key === '') ?
+              <FormControl
+                key={`${k}-${i}`}
+                name={`${k}-${i}`}
+                type={formInfo[k]["type"]}
+                componentClass={formInfo[k]["componentClass"]}
+                value={key}
+                onChange={props.formChange}
+              />:
+              <div key={`${k}-${i}`} name={`${k}-${i}`}>
+                {key}
+                <Button bsStyle="link" name={`${k}-${i}`} onClick={props.formDelete}>
+                  -
+                </Button>
+              </div>
+          )):
+          dataObj[k].map((key, i) => (
+              <FormControl
+                key={`${k}-${i}`}
+                name={`${k}-${i}`}
+                type={formInfo[k]["type"]}
+                placeholder={formInfo[k]["placeholder"]}
+                componentClass={formInfo[k]["componentClass"]}
+                value={key}
+                onChange={props.formChange}
+              />
+          ));
+
+        return (
+          <div>
+            <FormGroup key={k} validationState={(props.message === errorStatus.formError && dataObj[k] < 1) ? 'warning': null}>
+              <ControlLabel>{upper(k)}</ControlLabel>
+              {formItem}
+            </FormGroup>
+
+            <Button bsStyle="link" name={k} onClick={props.formAdd}>
+              +
+            </Button>
+          </div>
+        );
+      }
+      else if(k !== "_id"){
         return(
           <FormGroup
             key={k}
-            validationState={(props.message.error === errorStatus.formError && (props.message[k] === '' || props.message[k] === undefined)) ? 'warning': null}
+            validationState={(props.message === errorStatus.formError && (dataObj[k] === '' || dataObj[k] === undefined)) ? 'warning': null}
           >
-            <ControlLabel>{`${k.charAt(0).toUpperCase()}${k.slice(1)}*`}</ControlLabel>
+            <ControlLabel>{upper(k)}</ControlLabel>
             <FormControl
               name={k}
-              type={messageData[k]["type"]}
-              placeholder={messageData[k]["placeholder"]}
-              componentClass={messageData[k]["componentClass"]}
-              value={props.message[k]}
+              type={formInfo[k]["type"]}
+              placeholder={formInfo[k]["placeholder"]}
+              componentClass={formInfo[k]["componentClass"]}
+              value={dataObj[k]}
               onChange={props.formChange}
             />
           </FormGroup>
@@ -61,6 +111,8 @@ export default EditForm;
 
 EditForm.propTypes = {
   formChange: PropTypes.func.isRequired,
+  formAdd: PropTypes.func.isRequired,
+  formDelete: PropTypes.func.isRequired,
   editData: PropTypes.func.isRequired,
   updateState: PropTypes.func.isRequired,
 

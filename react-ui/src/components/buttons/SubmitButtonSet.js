@@ -37,10 +37,11 @@ class SubmitButtonSet extends React.Component {
 
 
   submit = (e) => {
+    const edit = this.props.edit;
 
-    if(this.props.message.error === ""){ //if there is no error with the forms
-      if(this.props.title === "Delete Content") this.props.editData(this.props.url);
-      else this.props.editData(this.props.url, this.props.formItems);
+    if(this.props.message === ""){ //if there is no error with the forms
+      if(edit.modalTitle === "Delete Content") this.props.editData(edit.url);
+      else this.props.editData(edit.url, edit.dataObj);
     }
     else {
       e.preventDefault();//prevent navLink
@@ -49,6 +50,7 @@ class SubmitButtonSet extends React.Component {
 
 
   render(){
+    const edit = this.props.edit;
 
     return (
       <div className="text-center">
@@ -56,10 +58,10 @@ class SubmitButtonSet extends React.Component {
           message={this.props.message}
         />
         {
-          (this.props.message.error === errorStatus.expError) ?
+          (this.props.message !== errorStatus.expError) ?
             <div>
               <Button className="edit" bsStyle="primary" onClick={this.submit}>
-                {this.props.title}
+                {edit.modalTitle}
               </Button>
               <Button className="edit" onClick={this.pop}>
                 Cancel
@@ -71,11 +73,10 @@ class SubmitButtonSet extends React.Component {
                 updateState={this.props.updateState}
                 dataObj={{}}
                 title="Login"
-                pageSection={""}
                 length={2}
               />
               <Button className="edit" onClick={this.logout}>
-                Cancel
+                Close
               </Button>
             </div>
         }

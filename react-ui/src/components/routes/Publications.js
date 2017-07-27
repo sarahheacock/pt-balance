@@ -24,7 +24,7 @@ const Publications = (props) => {
 
   return (
     <div className="main-content">
-      <PageHeader>Publications and Presentations</PageHeader>
+      <PageHeader className="head">Publications and Presentations</PageHeader>
       {pubs}
     </div>
   );

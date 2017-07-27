@@ -39,10 +39,10 @@ class Header extends React.Component {
 
     return (
       <div>
-        <Navbar inverse className="navigation">
+        <Navbar className="navigation" fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              {"PBS"}
+              <div><span className="brand">PBS</span></div>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
