@@ -1,7 +1,8 @@
 const express = require('express');
 
 const path = require('path');
-const jsonParser = require("body-parser").json;
+// const jsonParser = require("body-parser").json;
+const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const config = require('./configure/config');
@@ -14,6 +15,7 @@ const refreshRoutes = express.Router();
 const adminAuthRoutes = express.Router();
 const userRoutes = require("./routes/userRoutes"); //page retrieval for user
 const adminRoutes = require("./routes/adminRoutes"); //routes that need admin auth
+const fileRoutes = require("./routes/fileRoutes"); //routes that need admin auth
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,7 +24,9 @@ mongoose.connect(config.database); //connect to database
 app.set('superSecret', config.secret); //set secret constiable
 
 // use body parser so we can get info from POST and/or URL parameters
-app.use(jsonParser());
+// app.use(jsonParser());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(logger("dev"));
 
 const db = mongoose.connection;
@@ -107,7 +111,7 @@ app.use('/user', userRoutes); //ROUTES THAT DO NOT NEED AUTHENTICATION
 // apply the routes to our application with the prefix /admin
 app.use("/admin", adminAuthRoutes);
 app.use('/admin/edit', adminRoutes); // ROUTES THAT NEED ADMIN ATHENTICATION
-
+app.use('/admin/file', fileRoutes); // ROUTES THAT NEED ADMIN ATHENTICATION
 
 app.use(refreshRoutes);
 

@@ -5,6 +5,8 @@ import { Nav, Navbar, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import EditButton from './buttons/EditButton';
+import { initialEdit, initialUser, initialMessage } from '../data/data';
+
 
 class Header extends React.Component {
   static propTypes = {
@@ -16,6 +18,33 @@ class Header extends React.Component {
 
   componentDidMount(){
     this.props.getData(`/user/${blogID}`);
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('load', this.onResize);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('load', this.onResize);
+  }
+
+  onResize = (e) => {
+    // const carouselEl = document.getElementById("carImg0");
+    // const carouselHeight = (carouselEl) ? Math.floor(carouselEl.height) : 0;
+    // const totalHeight = Math.floor(window.innerHeight ||
+    //   document.documentElement.clientHeight ||
+    //   document.body.clientHeight);
+    // const carHead = document.getElementById("carHeader");
+    //
+    // if(carHead) carHead.style.height = `${Math.floor(carouselHeight*100/totalHeight)}vh`;
+  }
+
+  logout = (e) => {
+    const content = {
+      edit: initialEdit,
+      message: initialMessage,
+      user: initialUser
+    };
+    this.props.updateState(content);
   }
 
   render(){
@@ -37,9 +66,10 @@ class Header extends React.Component {
       }
     });
 
+
     return (
       <div>
-        <Navbar className="navigation" fixedTop>
+        <Navbar className="navigation" id="navigation" fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
               <div><span className="brand">PBS</span></div>
@@ -53,14 +83,17 @@ class Header extends React.Component {
             </Nav>
             <Nav pullRight>
               <LinkContainer to="#">
-                <EditButton
-                  user={this.props.user}
-                  dataObj={{}}
-                  updateState={this.props.updateState}
-                  pageSection="header"
-                  title="Login"
-                  length={2}
-                />
+                {(!(!this.props.user.token))?
+                  <NavItem onClick={this.logout}>
+                    Logout
+                  </NavItem> :
+                  <EditButton
+                    user={this.props.user}
+                    dataObj={{}}
+                    updateState={this.props.updateState}
+                    title="Login"
+                    length={2}
+                  />}
               </LinkContainer>
             </Nav>
           </Navbar.Collapse>

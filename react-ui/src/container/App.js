@@ -29,6 +29,7 @@ class App extends Component {
     //and wraps in dispatch (what causes state change)
 
     const updateState = bindActionCreators(AdminActionCreators.updateState, dispatch);
+    const uploadFile = bindActionCreators(AdminActionCreators.uploadFile, dispatch);
     const getData = bindActionCreators(AdminActionCreators.getData, dispatch);
     const putData = bindActionCreators(AdminActionCreators.putData, dispatch);
     const postData = bindActionCreators(AdminActionCreators.postData, dispatch);
@@ -66,6 +67,7 @@ class App extends Component {
             user={user}
             message={message}
 
+            uploadFile={uploadFile}
             putData={putData}
             postData={postData}
             deleteData={deleteData}

@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader, Col, Row, Button } from 'react-bootstrap';
+import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
 import moment from 'moment';
 
 import EditButton from '../buttons/EditButton';
+import { cloudName } from '../../data/data';
+
 
 const News = (props) => {
   const events = props.data.map((event, index) => (
@@ -17,10 +20,33 @@ const News = (props) => {
                 <p><b>{moment(event.createdAt).format('LL')}</b></p>
               </Col>
               <Col sm={3}>
-                <img src={event.image}/>
+                {(!event.image.includes("http")) ?
+                  <Image
+                    cloudName={cloudName}
+                    publicId={event.image}
+                    width="300"
+                    radius="20"
+                    crop="scale"/>:
+                  <img alt="900x500" src={event.image}/>
+                }
               </Col>
             </Row>
-
+            <div className="text-center">
+              <EditButton
+                user={props.user}
+                dataObj={event}
+                updateState={props.updateState}
+                title={"Edit"}
+                length={2}
+              />
+              <EditButton
+                user={props.user}
+                dataObj={event}
+                updateState={props.updateState}
+                title={"Delete"}
+                length={props.data.length}
+              />
+            </div>
           </Row>
           <hr />
         </div>
@@ -31,7 +57,15 @@ const News = (props) => {
     <div className="main-content">
       <PageHeader className="head">News and Events</PageHeader>
       {events}
-
+      <div className="text-center">
+        <EditButton
+          user={props.user}
+          dataObj={props.data[0]}
+          updateState={props.updateState}
+          title={"Add"}
+          length={2}
+        />
+      </div>
     </div>
   );
 }

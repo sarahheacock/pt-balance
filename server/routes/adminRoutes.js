@@ -4,14 +4,9 @@ const adminRoutes = express.Router();
 const Page = require("../models/page").Page;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const cloudinary = require('cloudinary');
+
 const config = require('../configure/config');
 
-cloudinary.config({
-  cloud_name: config.cloud_name,
-  api_key: config.api_key,
-  api_secret: config.api_secret
-});
 
 adminRoutes.param("pageID", function(req, res, next, id){
   Page.findById(id, function(err, doc){
@@ -49,18 +44,6 @@ adminRoutes.param("sectionID", function(req, res, next, id){
 
 
 //======================EDIT SECTIONS==============================
-adminRoutes.post("/file", function(req, res){
-  // console.log(req.files);
-  // cloudinary.v2.uploader.upload(req.files.myImage.path, (error, result) => {
-  //   console.log(result);
-  //   res.json(result);
-  // });
-  // console.log(req.body.file);
-  cloudinary.uploader.upload(req.body.file, function(result) {
-    console.log(result);
-    res.json(result);
-  });
-})
 
 adminRoutes.get("/:pageID/:section", function(req, res){
   res.json(req.section);

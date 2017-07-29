@@ -14,6 +14,7 @@ const Footer = (props) => {
         edit={props.edit}
         message={props.message}
 
+        uploadFile={props.uploadFile}
         putData={props.putData}
         postData={props.postData}
         deleteData={props.deleteData}
@@ -22,6 +23,11 @@ const Footer = (props) => {
       />
 
       <Row className="clearfix content">
+        <i>Whether you have a question about our research
+        or have any suggestions for us, we would love to hear from you!
+        Click on the envelope below to leave us a message or find us
+        through linkedin or facebook. Thank you!</i>
+        <hr />
         <Col sm={6} className="text-center">
           <h3>Around the Web</h3>
           <h3>
@@ -41,11 +47,11 @@ const Footer = (props) => {
               updateState={props.updateState}
               dataObj={{}}
               title="Send Message"
-              pageSection=""
               length={2}
             />
           </h3>
         </Col>
+        <hr />
       </Row>
     </footer>
 
@@ -60,6 +66,7 @@ Footer.propTypes = {
   edit: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
 
+  uploadFile: PropTypes.func.isRequired,
   putData: PropTypes.func.isRequired,
   postData: PropTypes.func.isRequired,
   deleteData: PropTypes.func.isRequired,

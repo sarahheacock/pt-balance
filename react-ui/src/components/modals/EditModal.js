@@ -4,10 +4,6 @@ import { Modal } from 'react-bootstrap';
 
 import EditForm from '../forms/EditForm';
 
-import request from 'superagent';
-const CLOUDINARY_UPLOAD_PRESET = 'thosldom';
-const CLOUDINARY_UPLOAD_URL = ' https://api.cloudinary.com/v1_1/dhd1eov8v/image/upload';
-
 class EditModal extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
@@ -29,13 +25,22 @@ class EditModal extends React.Component {
     const index = nameArr[1]
     const value = e.target.value;
 
-    if(Array.isArray(this.props.edit.dataObj[name])){
-      dataObj[name][index] = value;
+    if(value === "delete"){
+      dataObj[name].splice(index, 1);
+    }
+    else if(value === "add"){
+      dataObj[name].push('');
     }
     else {
-      dataObj[name] = value;
+      if(Array.isArray(this.props.edit.dataObj[name])){
+        dataObj[name][index] = value;
+      }
+      else {
+        dataObj[name] = value;
+      }
     }
 
+
     this.props.updateState({
       edit: {
         ...this.props.edit,
@@ -43,64 +48,23 @@ class EditModal extends React.Component {
       }
     });
   }
+
 
   onFormAdd = (files) => {
-    // let dataObj = {...this.props.edit.dataObj};
-    // const name = e.target.name;
-    const file = files[0].preview;
-    // console.log("file", {...file})
-    this.props.postData(`/admin/edit/file?token=${this.props.user.token}`, {
-      'file': file,
-      'edit': {...this.props.edit}
+    let newEdit = {...this.props.edit};
+
+    const file = new File([files[0]], files[0].name, {
+      type: "image/jpeg",
     });
+    // console.log(files);
 
-    // this.props.postData(CLOUDINARY_UPLOAD_URL, {
-    //   'upload_preset': CLOUDINARY_UPLOAD_PRESET,
-    //   'file': file
-    // });
-
-    // ,
-    // 'edit': {...this.props.edit}
-
-
-    // if(name === "carousel"){
-      // let upload = request.post(CLOUDINARY_UPLOAD_URL)
-      //                   .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-      //                   .field('file', file);
-      //
-      // upload.end((err, response) => {
-      //   if (err) {
-      //     console.error(err);
-      //   }
-      //
-      //   if (response.body.secure_url !== '') {
-      //     dataObj.carousel.push(response.body.secure_url);
-      //     this.props.updateState({
-      //       edit: {
-      //         ...this.props.edit,
-      //         dataObj: dataObj
-      //       }
-      //     });
-      //   }
-      // });
-    // }
+    this.props.uploadFile({
+      url: `/admin/file?token=${this.props.user.token}`,
+      edit: newEdit,
+      name: (window.location.pathname === "/") ? "carousel" : "image"
+    }, file);
   }
 
-  onFormDelete = (e) => {
-    let dataObj = {...this.props.edit.dataObj};
-    const nameArr = e.target.name.split("-");
-    const name = nameArr[0];
-    const i = nameArr[1];
-
-    dataObj[name].splice(i, 1);
-
-    this.props.updateState({
-      edit: {
-        ...this.props.edit,
-        dataObj: dataObj
-      }
-    });
-  }
 
   render(){
 
@@ -125,7 +89,6 @@ class EditModal extends React.Component {
             <EditForm
               formChange={this.onFormChange}
               formAdd={this.onFormAdd}
-              formDelete={this.onFormDelete}
               editData={editFunc}
               updateState={this.props.updateState}
 

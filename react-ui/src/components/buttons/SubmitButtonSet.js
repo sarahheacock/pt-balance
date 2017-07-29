@@ -51,6 +51,11 @@ class SubmitButtonSet extends React.Component {
 
   render(){
     const edit = this.props.edit;
+    const style = (edit.modalTitle.includes("Delete")) ?
+      "danger":
+      ((edit.modalTitle.includes("Edit")) ?
+        "info":
+        "primary");
 
     return (
       <div className="text-center">
@@ -60,7 +65,7 @@ class SubmitButtonSet extends React.Component {
         {
           (this.props.message !== errorStatus.expError) ?
             <div>
-              <Button className="edit" bsStyle="primary" onClick={this.submit}>
+              <Button className="edit" bsStyle={style} onClick={this.submit}>
                 {edit.modalTitle}
               </Button>
               <Button className="edit" onClick={this.pop}>
@@ -72,7 +77,7 @@ class SubmitButtonSet extends React.Component {
                 user={this.props.user}
                 updateState={this.props.updateState}
                 dataObj={{}}
-                title="Login"
+                title="Login "
                 length={2}
               />
               <Button className="edit" onClick={this.logout}>

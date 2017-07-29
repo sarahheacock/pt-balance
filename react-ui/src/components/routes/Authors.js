@@ -5,7 +5,6 @@ import { Nav, NavItem, Tab, Row, Col, PageHeader } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Nancy from './aboutTabs/Nancy';
-import EditButton from '../buttons/EditButton';
 
 
 const chop = (name) => {

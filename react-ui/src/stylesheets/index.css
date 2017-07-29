@@ -23,6 +23,15 @@ b {
   color: DarkSlateGray;
 }
 
+button {
+  margin: 1%;
+}
+
+
+.sampleImg {
+  width: 200px;
+}
+
 /*h3 {
   color: DarkSlateGray;
 }*/
@@ -65,8 +74,10 @@ a:active {
   text-align: center; }
 
 .main-content {
+
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 6%;
   margin-bottom: 3%;
   background-color: White;
   padding: 2%;
@@ -90,30 +101,30 @@ a:active {
     outline: 0;
 }
 
-.navigation {
+/*.navigation {
   left: 0;
   margin-right: 0;
   position: sticky;
-}
+}*/
 
 /*.carousel-content {
   height: 100%;
 }*/
 
-.carousel-control.left {
+/*.carousel-control.left {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .carousel-control.right {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 100%);
-}
+}*/
 
 header {
   /*background-size: cover;
   background-position: center top;*/
-  height: 100vh;
+  /*height: 100vh;*/
   /*background-attachment: fixed;*/
-  width: 100%;
+  /*width: 100%;*/
   padding: 0px;
   position: sticky;
   /*width: 100%;
@@ -130,7 +141,7 @@ header {
   margin: 0 auto;
   width: 100%;
   padding: 2%;
-  height: 100%;
+  /*height: 100%;*/
 }
 
 .summary {
@@ -140,13 +151,7 @@ header {
   margin: 0 auto;
 }
 
-.lower-content {
-  background: WhiteSmoke;
-  height: 100%;
 
-  width: 100%;
-  padding-top: 2%;
-}
 
 .about {
   text-align: left;
@@ -164,9 +169,14 @@ header {
   margin: 2%;
 }
 
-.well:hover {
+.researchGate {
+  border-radius: 50%;
+  width: 50px;
+}
+
+.researchGate:hover {
   text-decoration: none;
-  box-shadow: 10px 10px 5px #888888;
+  box-shadow: 5px 5px 2px #888888;
 }
 
 a:hover{
@@ -180,12 +190,16 @@ img{
 }
 
 i {
-  color: #53868B;
+  color: #5F9EA0;
   margin: 1%;
 }
 
 .icon {
   padding: 0.5%;
+}
+
+.link {
+
 }
 
 .fa-facebook-square:hover{
@@ -204,6 +218,26 @@ i {
 
 .link:hover{
   color: #53868B;
+}
+
+.lower-content {
+  background: WhiteSmoke;
+  height: 100%;
+
+  width: 100%;
+  padding-top: 2%;
+}
+
+.home-content {
+
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 3%;
+  background-color: White;
+  padding: 2%;
+  padding-top: 1%;
+  border-radius: 2%;
+  overflow-x: hidden;
 }
 
 footer {

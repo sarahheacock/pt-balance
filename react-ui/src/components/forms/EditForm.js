@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-
-import { Button, Form, FormControl, ControlLabel, FormGroup, Checkbox } from 'react-bootstrap';
-
+import { Button, Form, FormControl, ControlLabel, FormGroup, Checkbox, Row, Col } from 'react-bootstrap';
 
 import SubmitButtonSet from '../buttons/SubmitButtonSet';
+import FormImage from './FormImage.js';
 import { errorStatus, messageData, loginData, formData } from '../../data/data';
+
 
 
 const upper = (label) => {
@@ -22,62 +22,62 @@ const EditForm = (props) => {
     Object.keys(props.edit.dataObj).map(k => {
 
       const dataObj = props.edit.dataObj;
+      let formItem = <div></div>;
 
-      if(Array.isArray(dataObj[k])){
-        const formItem = (k === "carousel") ?
-          dataObj[k].map((key, i) => (
-            <div key={`${k}-${i}`} name={`${k}-${i}`}>
-              {key}
-              <Button bsStyle="link" name={`${k}-${i}`} onClick={props.formDelete}>
-                -
-              </Button>
-            </div>
-          )):
-          dataObj[k].map((key, i) => (
-              <FormControl
-                key={`${k}-${i}`}
-                name={`${k}-${i}`}
-                type={formInfo[k]["type"]}
-                placeholder={formInfo[k]["placeholder"]}
-                componentClass={formInfo[k]["componentClass"]}
-                value={key}
-                onChange={props.formChange}
-              />
-          ));
-
-        return (
+      //if dataObj[k] is an array
+      if(Array.isArray(dataObj[k])){ // another map for an Array
+        if(k === "carousel") console.log(dataObj[k]);
+        formItem = dataObj[k].map((key, i) => (
           <div>
-            <FormGroup key={k} validationState={(props.message === errorStatus.formError && dataObj[k] < 1) ? 'warning': null}>
+            <FormImage
+              key={`${k}-${i}`}
+              name={`${k}-${i}`}
+              formChange={props.formChange}
+              value={key}
+              group={k}
+            />
+          </div>));
+      }
+      else {
+        formItem = <FormImage
+            key={k}
+            name={k}
+            formChange={props.formChange}
+            value={dataObj[k]}
+            group={k}
+          />;
+      }
+
+      if(k !== "_id"){
+        // have the form item determined above
+        // if dataObj[k] is an array but not an image, provide add button
+        // if dataObj[k] is an image, provide dropzone
+        return (
+          <div key={k}>
+            <FormGroup validationState={(props.message === errorStatus.formError && dataObj[k] < 1) ? 'warning': null}>
               <ControlLabel>{upper(k)}</ControlLabel>
               {formItem}
             </FormGroup>
 
-            <Dropzone
-              multiple={false}
-              accept="image/*"
-              onDrop={props.formAdd.bind(this)}>
-              name={k}
-              <p>Drop an image or click to select a file to upload.</p>
-            </Dropzone>
+            <div>
+            {Array.isArray(dataObj[k] && !(!formInfo[k]))?
+              <Button bsStyle="link" name={k} value={"add"} onClick={props.formChange}>
+                Add
+              </Button>:
+              <div></div>}
+            </div>
+
+            <div className="text-center">
+              {(k === "carousel" || k === "image") ?
+                <Dropzone
+                  multiple={false}
+                  accept="image/*"
+                  onDrop={props.formAdd.bind(this)}>
+                  <p>Drop an image or click to select a file to upload.</p>
+                </Dropzone>:
+                <div></div>}
+            </div>
           </div>
-        );
-      }
-      else if(k !== "_id"){
-        return(
-          <FormGroup
-            key={k}
-            validationState={(props.message === errorStatus.formError && (dataObj[k] === '' || dataObj[k] === undefined)) ? 'warning': null}
-          >
-            <ControlLabel>{upper(k)}</ControlLabel>
-            <FormControl
-              name={k}
-              type={formInfo[k]["type"]}
-              placeholder={formInfo[k]["placeholder"]}
-              componentClass={formInfo[k]["componentClass"]}
-              value={dataObj[k]}
-              onChange={props.formChange}
-            />
-          </FormGroup>
         );
       }
     });
@@ -109,7 +109,6 @@ export default EditForm;
 EditForm.propTypes = {
   formChange: PropTypes.func.isRequired,
   formAdd: PropTypes.func.isRequired,
-  formDelete: PropTypes.func.isRequired,
   editData: PropTypes.func.isRequired,
   updateState: PropTypes.func.isRequired,
 

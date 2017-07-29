@@ -4,6 +4,11 @@ import axios from 'axios';
 // import {blogID, key} from '../config';
 import {errorStatus, initialUser, initialMessage, initialEdit, initialData} from '../data/data';
 
+const validateForm = (newData) => {
+  return Object.keys(newData).reduce((a, b) => {
+    return a && ((newData[b] !== '' && newData[b] !== undefined) || b === "_id");
+  }, true);
+}
 
 export const updateState = (newState) => {
   return {
@@ -12,6 +17,30 @@ export const updateState = (newState) => {
   }
 }
 
+export const uploadFile = (newData, file) => {
+
+  console.log("file", file);
+  let formData = new FormData();
+  formData.append('file', file);
+
+  // console.log("formData", formData.get('file'));
+
+  return (dispatch) => {
+    axios.post(newData.url, formData)
+      .then(response => {
+        if(response.data.success === false) dispatch(updateState({ message: errorStatus.expError }));
+
+        if(Array.isArray(newData.edit.dataObj[newData.name])) newData.edit.dataObj[newData.name].push(response.data.public_id);
+        else newData.edit.dataObj[newData.name] = response.data.public_id;
+
+        dispatch(updateState({ edit: newData.edit }));
+      })
+      .catch(error => {
+        console.log("err", error);
+        dispatch(updateState({ message: errorStatus.loadError }))
+      });
+  };
+}
 
 export const getData = (url) => {
   return (dispatch) => {
@@ -38,9 +67,7 @@ export const putData = (url, newData) => {
 
   return (dispatch) => {
     //make sure areas are filled
-    const valid = Object.keys(newData).reduce((a, b) => {
-      return a && ((newData[b] !== '' && newData[b] !== undefined));
-    }, true);
+    const valid = validateForm(newData);
     if(!valid) return dispatch(updateState({ message: errorStatus.formError }));
 
     console.log(JSON.stringify(newData, undefined, 2))
@@ -77,9 +104,7 @@ export const putData = (url, newData) => {
 export const postData = (url, newData) => {
   return (dispatch) => {
 
-    const valid = Object.keys(newData).reduce((a, b) => {
-      return a && ((newData[b] !== '' && newData[b] !== undefined));
-    }, true);
+    const valid = validateForm(newData);
     if(!valid) return dispatch(updateState({ message: errorStatus.formError }));
 
     console.log("newData", newData);
@@ -89,19 +114,10 @@ export const postData = (url, newData) => {
           dispatch(updateState({ message: errorStatus.expError }));
         }
         else {
-          // if(url.includes('cloudinary') && response.data.secure_url !== '') { //if uploading file from form
-          //   // let dataObj = {...newData.edit.dataObj};
-          //   // if (r) {
-          //     // dataObj.carousel.push(response.body.secure_url);
-          //     this.props.updateState({
-          //       message: 'yay!'
-          //     });
-          //   // }
-          // }
           if(url.includes('file')) { //if uploading file from form
             let dataObj = {...newData.edit.dataObj};
             dataObj.push(response.data.secure_url);
-            
+
             dispatch(updateState({
               edit: {
                 ...newData.edit,
