@@ -28,9 +28,6 @@ class EditModal extends React.Component {
     if(value === "delete"){
       dataObj[name].splice(index, 1);
     }
-    else if(value === "add"){
-      dataObj[name].push('');
-    }
     else {
       if(Array.isArray(this.props.edit.dataObj[name])){
         dataObj[name][index] = value;
@@ -45,7 +42,8 @@ class EditModal extends React.Component {
       edit: {
         ...this.props.edit,
         dataObj: dataObj
-      }
+      },
+      message: ''
     });
   }
 

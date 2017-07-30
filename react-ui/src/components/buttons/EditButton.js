@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, NavItem } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import moment from 'moment';
 
-import { blogID, initialData, initialEdit, initialUser, initialMessage, messageData, loginData, errorStatus } from '../../data/data';
-
+import { blogID, initialEdit, messageData, loginData, defaultData } from '../../data/data';
 
 
 const EditButton = (props) => {
+
+  const pathArr = window.location.pathname.split('/');
+  const page = (pathArr[1] === "") ? "home" : pathArr[1];
 
   //=====STYLE OF BUTTON DEPENDING ON BUTTON TITLE====================================================
   const style = (props.title === "Edit") ?
@@ -34,22 +36,24 @@ const EditButton = (props) => {
   if(!(!props.user.token) && adminAuth){
 
     let result = {};
-    Object.keys(props.dataObj).forEach((key) => {
-      if(props.title === "Add" && key === "image") result[key] = 'Tile-Dark-Grey-Smaller-White-97_pxf5ux';
-      else if(props.title === "Add" && key !== "_id" && key !== "createdAt") result[key] = '';
-      else if(props.title === "Delete" && key !== "_id" && key !== "createdAt") ;
-      else if(props.title === "Delete" && key === "_id") result[key] = props.dataObj[key];
-      else if(props.title === "Edit" && key !== "_id" && key !== "createdAt") result[key] = props.dataObj[key];
-    });
+    if(props.title === "Edit" || props.title === "Add"){
+      Object.keys(defaultData[page]).forEach((key) => {
+
+        if(props.title === "Edit"){ //copy everything
+          if(key === "date") result[key] = moment(props.dataObj[key]).format('LL');
+          else result[key] = props.dataObj[key];
+        }
+        else if(props.title === "Add"){ //initialize everything to defaultData
+          result[key] = defaultData[page][key];
+        }
+
+      });
+    }
+    else if(props.title === "Delete"){ //only possible in publications and news
+      result._id = props.dataObj._id;
+    }
+
     dataObj = Object.assign({}, result);
-    console.log("dataObj", dataObj);
-
-
-    //if trying to delete last room or local, send error
-    if(modalTitle === "Delete Content" && props.length < 2) message.error = errorStatus.deleteError;
-
-    const pathArr = window.location.pathname.split('/');
-    const page = (pathArr[1] === "") ? "home" : pathArr[1];
 
     if(props.title === "Delete") url = `/admin/edit/${blogID}/${page}/${props.dataObj._id}?token=${props.user.token}`;
     else if(props.title === "Add") url = `/admin/edit/${blogID}/${page}?token=${props.user.token}`;
@@ -57,17 +61,11 @@ const EditButton = (props) => {
 
   }
   else if(props.title === "Login" || props.title === "Login ") {
-    // let result = {};
     Object.keys(loginData).forEach((k) => dataObj[k] = '');
-    // dataObj = Object.assign({}, result);
-
     url = "/admin/login";
   }
   else if(props.title === "Send Message"){
-    // let result = {};
     Object.keys(messageData).forEach((k) => dataObj[k] = '');
-    // dataObj = Object.assign({}, result);
-
     url = "/user/sayHello";
   }
 
@@ -114,6 +112,5 @@ EditButton.propTypes = {
 
   updateState: PropTypes.func.isRequired,
 
-  title: PropTypes.string.isRequired,
-  length: PropTypes.number.isRequired
+  title: PropTypes.string.isRequired
 };

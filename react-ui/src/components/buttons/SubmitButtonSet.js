@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { initialMessage, initialEdit, initialUser, errorStatus } from '../../data/data';
 

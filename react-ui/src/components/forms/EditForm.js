@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import { Button, Form, FormControl, ControlLabel, FormGroup, Checkbox, Row, Col } from 'react-bootstrap';
+import { Form, ControlLabel, FormGroup } from 'react-bootstrap';
 
 import SubmitButtonSet from '../buttons/SubmitButtonSet';
 import FormImage from './FormImage.js';
-import { errorStatus, messageData, loginData, formData } from '../../data/data';
+import { errorStatus } from '../../data/data';
 
 
 
@@ -14,7 +14,6 @@ const upper = (label) => {
 };
 
 const EditForm = (props) => {
-  const formInfo = {...messageData, ...loginData, ...formData};
 
   //======ALL OF THE FORM GROUPS===================================
   const formGroups = (props.edit.modalTitle === "Delete Content") ?
@@ -28,15 +27,13 @@ const EditForm = (props) => {
       if(Array.isArray(dataObj[k])){ // another map for an Array
         if(k === "carousel") console.log(dataObj[k]);
         formItem = dataObj[k].map((key, i) => (
-          <div>
             <FormImage
               key={`${k}-${i}`}
               name={`${k}-${i}`}
               formChange={props.formChange}
               value={key}
               group={k}
-            />
-          </div>));
+            />));
       }
       else {
         formItem = <FormImage
@@ -48,38 +45,30 @@ const EditForm = (props) => {
           />;
       }
 
-      if(k !== "_id"){
-        // have the form item determined above
-        // if dataObj[k] is an array but not an image, provide add button
-        // if dataObj[k] is an image, provide dropzone
-        return (
-          <div key={k}>
-            <FormGroup validationState={(props.message === errorStatus.formError && dataObj[k] < 1) ? 'warning': null}>
-              <ControlLabel>{upper(k)}</ControlLabel>
-              {formItem}
-            </FormGroup>
+      // have the form item determined above
+      // if dataObj[k] is an array but not an image, provide add button
+      // if dataObj[k] is an image, provide dropzone
+      return (
+        <div key={k}>
+          <FormGroup validationState={(props.message === errorStatus.formError && dataObj[k] < 1) ? 'warning': null}>
+            <ControlLabel>{upper(k)}</ControlLabel>
+            {formItem}
+          </FormGroup>
 
-            <div>
-            {Array.isArray(dataObj[k] && !(!formInfo[k]))?
-              <Button bsStyle="link" name={k} value={"add"} onClick={props.formChange}>
-                Add
-              </Button>:
+          <div className="text-center">
+            {(k === "carousel" || k === "image") ?
+              <Dropzone
+                multiple={false}
+                accept="image/*"
+                onDrop={props.formAdd.bind(this)}>
+                <p>Drop an image or click to select a file to upload.</p>
+              </Dropzone>:
               <div></div>}
-            </div>
-
-            <div className="text-center">
-              {(k === "carousel" || k === "image") ?
-                <Dropzone
-                  multiple={false}
-                  accept="image/*"
-                  onDrop={props.formAdd.bind(this)}>
-                  <p>Drop an image or click to select a file to upload.</p>
-                </Dropzone>:
-                <div></div>}
-            </div>
           </div>
-        );
-      }
+
+          <hr />
+        </div>
+      );
     });
 
 

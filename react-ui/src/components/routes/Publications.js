@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader, Button } from 'react-bootstrap';
+import { PageHeader } from 'react-bootstrap';
 import moment from 'moment';
 
 import EditButton from '../buttons/EditButton';
@@ -26,14 +26,12 @@ const Publications = (props) => {
                 dataObj={article}
                 updateState={props.updateState}
                 title={"Edit"}
-                length={2}
               />
               <EditButton
                 user={props.user}
                 dataObj={article}
                 updateState={props.updateState}
                 title={"Delete"}
-                length={props.data.length}
               />
             </div>
           </div>
@@ -52,7 +50,6 @@ const Publications = (props) => {
           dataObj={props.data[0]}
           updateState={props.updateState}
           title={"Add"}
-          length={2}
         />
       </div>
     </div>

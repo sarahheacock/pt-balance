@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { blogID } from '../data/data';
-import { Nav, Navbar, NavItem, Image } from 'react-bootstrap';
+import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import EditButton from './buttons/EditButton';
@@ -18,24 +18,6 @@ class Header extends React.Component {
 
   componentDidMount(){
     this.props.getData(`/user/${blogID}`);
-    window.addEventListener('resize', this.onResize);
-    window.addEventListener('load', this.onResize);
-  }
-
-  componentWillUnmount(){
-    window.removeEventListener('resize', this.onResize);
-    window.removeEventListener('load', this.onResize);
-  }
-
-  onResize = (e) => {
-    // const carouselEl = document.getElementById("carImg0");
-    // const carouselHeight = (carouselEl) ? Math.floor(carouselEl.height) : 0;
-    // const totalHeight = Math.floor(window.innerHeight ||
-    //   document.documentElement.clientHeight ||
-    //   document.body.clientHeight);
-    // const carHead = document.getElementById("carHeader");
-    //
-    // if(carHead) carHead.style.height = `${Math.floor(carouselHeight*100/totalHeight)}vh`;
   }
 
   logout = (e) => {

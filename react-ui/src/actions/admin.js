@@ -2,12 +2,28 @@ import * as AdminActionTypes from '../actiontypes/admin';
 import axios from 'axios';
 
 // import {blogID, key} from '../config';
-import {errorStatus, initialUser, initialMessage, initialEdit, initialData} from '../data/data';
+import {errorStatus, initialMessage, initialEdit, defaultData} from '../data/data';
 
 const validateForm = (newData) => {
-  return Object.keys(newData).reduce((a, b) => {
-    return a && ((newData[b] !== '' && newData[b] !== undefined) || b === "_id");
-  }, true);
+
+  // if(url.includes('edit')){
+    // const pathArr = window.location.pathname.split('/');
+    // const page = (pathArr[1] === "") ? "home" : pathArr[1];
+
+    return Object.keys(newData).reduce((a, b) => {
+      return a && newData[b] !== '' && newData[b] !== undefined && newData[b].length > 0 && newData[b][0] !== '';
+    }, true);
+  // }
+  // else {
+  //   return Object.keys(newData).reduce((a, b))
+  // }
+
+}
+
+const shrink = (res) => {
+  let result = {};
+  Object.keys(defaultData).forEach((k) => result[k] = res[k]);
+  return result;
 }
 
 export const updateState = (newState) => {
@@ -33,7 +49,7 @@ export const uploadFile = (newData, file) => {
         if(Array.isArray(newData.edit.dataObj[newData.name])) newData.edit.dataObj[newData.name].push(response.data.public_id);
         else newData.edit.dataObj[newData.name] = response.data.public_id;
 
-        dispatch(updateState({ edit: newData.edit }));
+        dispatch(updateState({ edit: newData.edit, message: initialMessage }));
       })
       .catch(error => {
         console.log("err", error);
@@ -48,12 +64,7 @@ export const getData = (url) => {
     return axios.get(url)
       .then(response => {
         console.log("response", response.data);
-
-        let res = {};
-        Object.keys(initialData).forEach((k) => (
-          res[k] = response.data[k]
-        ));
-        dispatch(updateState({ data: res }));
+        dispatch(updateState({ data: shrink(response.data), message: initialMessage }));
 
       })
       .catch(error => {
@@ -79,15 +90,10 @@ export const putData = (url, newData) => {
           dispatch(updateState({ message: errorStatus.expError }));
         }
         else {
-          let res = {};
-          Object.keys(initialData).forEach((k) => (
-            res[k] = response.data[k]
-          ));
-
           dispatch(updateState({
             edit: initialEdit,
             message: initialMessage,
-            data: res
+            data: shrink(response.data)
           }));
         }
       })
@@ -122,7 +128,8 @@ export const postData = (url, newData) => {
               edit: {
                 ...newData.edit,
                 dataObj: dataObj
-              }
+              },
+              message: initialMessage
             }));
           }
           else if (url.includes('say')) { //if posting message
@@ -132,14 +139,14 @@ export const postData = (url, newData) => {
             dispatch(updateState({
               edit: initialEdit,
               message: initialMessage,
-              user: {...response.data, username: newData.username, password: ''}
+              user: {...response.data, username: newData.username, password: ''},
             }));
           }
           else if (url.includes('edit')) { //if posting new page
             dispatch(updateState({
               edit: initialEdit,
               message: initialMessage,
-              data: response.data
+              data: shrink(response.data)
             }));
           }
         }
@@ -172,15 +179,10 @@ export const deleteData = (url) => {
         dispatch(updateState({ message: errorStatus.expError }));
       }
       else {
-        let res = {};
-        Object.keys(initialData).forEach((k) => (
-          res[k] = response.data[k]
-        ));
-
         dispatch(updateState({
           edit: initialEdit,
           message: initialMessage,
-          data: res
+          data: shrink(response.data)
         }));
       }
     })

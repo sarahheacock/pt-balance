@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader, Carousel, Button } from 'react-bootstrap';
-import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
+import { PageHeader, Carousel } from 'react-bootstrap';
+import { Image } from 'cloudinary-react';
 
 import EditButton from '../buttons/EditButton';
 import { cloudName } from '../../data/data';
@@ -54,7 +54,6 @@ const Home = (props) => {
                 dataObj={props.data[0]}
                 updateState={props.updateState}
                 title={"Edit"}
-                length={2}
               />
             </div>
           </div>

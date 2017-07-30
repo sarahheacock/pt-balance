@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import { Nav, NavItem, Tab, Row, Col, PageHeader } from 'react-bootstrap';
+import { Nav, NavItem, Tab, Row, PageHeader } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Nancy from './aboutTabs/Nancy';

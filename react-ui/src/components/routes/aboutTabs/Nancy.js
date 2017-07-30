@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Button } from 'react-bootstrap';
-import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
+import { Row, Col } from 'react-bootstrap';
+import { Image } from 'cloudinary-react';
 
 import EditButton from '../../buttons/EditButton';
 import { cloudName } from '../../../data/data';
@@ -36,7 +36,6 @@ const Nancy = (props) => {
         dataObj={props.data}
         updateState={props.updateState}
         title={"Edit"}
-        length={2}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Col, FormControl } from 'react-bootstrap';
-import { Image, CloudinaryContext, Transformation } from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 
 import { messageData, loginData, formData, cloudName } from '../../data/data';
 const formInfo = {...messageData, ...loginData, ...formData};
@@ -25,17 +25,21 @@ const FormImage = (props) => {
          />:
          ((props.group === "carousel" || props.group === "image") ?
             <Row className="clearfix">
-              <Col sm={6} className="text-center">
-                {(!props.value.includes("http")) ?
-                  <Image cloudName={cloudName} publicId={props.value} width="200" crop="scale"/>:
-                  <img className="sampleImg" src={props.value} />
-                }
-              </Col>
-              <Col sm={2} className="text-center">
-                <Button bsStyle="link" name={props.name} value="delete" onClick={props.formChange}>
-                  Delete
-                </Button>
-              </Col>
+              <Row className="clearfix">
+                <Col sm={6} className="text-center">
+                  {(!props.value.includes("http")) ?
+                    <Image cloudName={cloudName} publicId={props.value} width="200" crop="scale"/>:
+                    <img className="sampleImg" src={props.value} alt={props.value}/>
+                  }
+                </Col>
+                <Col sm={2} className="text-center">
+                  {(props.group === "carousel") ?
+                  <Button bsStyle="link" name={props.name} value="delete" onClick={props.formChange}>
+                    Delete
+                  </Button>:
+                  <div></div>}
+                </Col>
+              </Row>
               <hr />
             </Row> :
             <div></div>)

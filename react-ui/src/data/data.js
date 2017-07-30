@@ -38,6 +38,33 @@ export const initialEdit = {
 // export const pageRoutes = [...Object.keys(initialData), 'login'];
 
 //===============info on user message form=========================================
+const defaultImage = 'Tile-Dark-Grey-Smaller-White-97_pxf5ux'
+
+export const defaultData = {
+  home: {
+    summary: '',
+    carousel: [defaultImage],
+  },
+  authors: {
+    name: '',
+    education: '',
+    summary: '',
+    image: defaultImage,
+  },
+  publications: {
+    title: '',
+    description: '',
+    authors: [''],
+    date: '',
+    link: '',
+  },
+  news: {
+    title: '',
+    description: '',
+    image: defaultImage,
+  }
+}
+
 export const formData = {
   // carousel: {
   //   type: 'file',

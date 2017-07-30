@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom';
 
 //redux
 import { bindActionCreators } from 'redux';

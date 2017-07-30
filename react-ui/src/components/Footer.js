@@ -26,7 +26,7 @@ const Footer = (props) => {
         <i>Whether you have a question about our research
         or have any suggestions for us, we would love to hear from you!
         Click on the envelope below to leave us a message or find us
-        through linkedin or facebook. Thank you!</i>
+        through linkedin and facebook. Thank you!</i>
         <hr />
         <Col sm={6} className="text-center">
           <h3>Around the Web</h3>
