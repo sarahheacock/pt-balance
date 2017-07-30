@@ -16,6 +16,11 @@ const navHeight = () => {
   return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
 };
 
+const homeHeight = () => {
+  const main = document.getElementById('homePageHeader');
+  return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
+};
+
 const Home = (props) => {
 
   const carouselImg = props.data[0]["carousel"].map((image, index) => (
@@ -26,7 +31,7 @@ const Home = (props) => {
           cloudName={cloudName}
           publicId={image}
           width={screen.width}
-          height={(windowInnerHeight() - navHeight()) - 100}
+          height={windowInnerHeight() - navHeight() - homeHeight() - 50}
           crop="scale"/>:
         <img className="carouselImg" alt="900x500" src={image}/>
       }
@@ -39,7 +44,7 @@ const Home = (props) => {
 
 
       <header id="carHeader">
-        <div className="head">
+        <div className="head" id="homePageHeader">
           <PageHeader className="head-title">Home</PageHeader>
         </div>
         <Carousel className="carousel-content">
