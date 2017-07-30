@@ -30,8 +30,8 @@ const Home = (props) => {
           id={`carImg${index}`}
           cloudName={cloudName}
           publicId={image}
-          width={screen.width}
-          height={windowInnerHeight() - navHeight() - homeHeight() - 50}
+          width={(screen.width)*3/4}
+          height={(screen.height/2)}
           crop="scale"/>:
         <img className="carouselImg" alt="900x500" src={image}/>
       }
