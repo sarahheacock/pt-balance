@@ -51,7 +51,7 @@ class Header extends React.Component {
 
     return (
       <div>
-        <Navbar className="navigation" id="navigation" fixedTop>
+        <Navbar className="navigation" id="navigation">
           <Navbar.Header>
             <Navbar.Brand>
               <div><span className="brand">PBS</span></div>

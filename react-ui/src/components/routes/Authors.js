@@ -19,7 +19,7 @@ const Authors = (props) => {
   const tabs = (props.data).map((d, i) => {
     return (
       <LinkContainer key={`authorTab${i}`} to={`/authors/${link(d.name)}`}>
-        <NavItem className="tab"><span className="head">{chop(d.name)}</span></NavItem>
+        <NavItem className="tab"><span>{chop(d.name)}</span></NavItem>
       </LinkContainer>
     )}
   );
@@ -35,8 +35,10 @@ const Authors = (props) => {
   ));
 
   return (
-    <div className="main-content">
-      <PageHeader className="head">About the Authors</PageHeader>
+    <div>
+      <div className="head">
+        <PageHeader className="head-title">About the Authors</PageHeader>
+      </div>
       <div className="text-center main-content">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row className="clearfix">

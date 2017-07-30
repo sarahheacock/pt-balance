@@ -50,16 +50,20 @@ const News = (props) => {
     ));
 
   return (
-    <div className="main-content">
-      <PageHeader className="head">News and Events</PageHeader>
-      {events}
-      <div className="text-center">
-        <EditButton
-          user={props.user}
-          dataObj={props.data[0]}
-          updateState={props.updateState}
-          title={"Add"}
-        />
+    <div>
+      <div className="head">
+        <PageHeader className="head-title">News and Events</PageHeader>
+      </div>
+      <div className="main-content">
+        {events}
+        <div className="text-center">
+          <EditButton
+            user={props.user}
+            dataObj={props.data[0]}
+            updateState={props.updateState}
+            title={"Add"}
+          />
+        </div>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ const Home = (props) => {
           cloudName={cloudName}
           publicId={image}
           width={screen.width}
-          height={windowInnerHeight() - navHeight() - 50}
+          height={(windowInnerHeight() - navHeight()) - 100}
           crop="scale"/>:
         <img className="carouselImg" alt="900x500" src={image}/>
       }
@@ -37,26 +37,30 @@ const Home = (props) => {
   return (
     <div>
 
+
       <header id="carHeader">
+        <div className="head">
+          <PageHeader className="head-title">Home</PageHeader>
+        </div>
         <Carousel className="carousel-content">
           {carouselImg}
         </Carousel>
       </header>
 
       <div className="lower-content">
-        <div className="home-content">
-          <PageHeader className="head">Home</PageHeader>
-          <div className="content">
-            <p className="summary">{props.data[0]["summary"]}</p>
-            <div className="text-center">
-              <EditButton
-                user={props.user}
-                dataObj={props.data[0]}
-                updateState={props.updateState}
-                title={"Edit"}
-              />
+
+          <div className="home-content">
+            <div className="content">
+              <p className="summary">{props.data[0]["summary"]}</p>
+              <div className="text-center">
+                <EditButton
+                  user={props.user}
+                  dataObj={props.data[0]}
+                  updateState={props.updateState}
+                  title={"Edit"}
+                />
+              </div>
             </div>
-          </div>
         </div>
       </div>
 
