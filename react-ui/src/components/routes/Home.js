@@ -7,19 +7,19 @@ import EditButton from '../buttons/EditButton';
 import { cloudName } from '../../data/data';
 
 
-const windowInnerHeight = () => Math.floor(window.innerHeight ||
-  document.documentElement.clientHeight ||
-  document.body.clientHeight); //height of window content
-
-const navHeight = () => {
-  const main = document.getElementById('navigation');
-  return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
-};
-
-const homeHeight = () => {
-  const main = document.getElementById('homePageHeader');
-  return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
-};
+// const windowInnerHeight = () => Math.floor(window.innerHeight ||
+//   document.documentElement.clientHeight ||
+//   document.body.clientHeight); //height of window content
+//
+// const navHeight = () => {
+//   const main = document.getElementById('navigation');
+//   return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
+// };
+//
+// const homeHeight = () => {
+//   const main = document.getElementById('homePageHeader');
+//   return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
+// };
 
 const Home = (props) => {
 
@@ -30,8 +30,8 @@ const Home = (props) => {
           id={`carImg${index}`}
           cloudName={cloudName}
           publicId={image}
-          width={(screen.width)*3/4}
-          height={(screen.height/2)}
+          width="900"
+          height="500"
           crop="scale"/>:
         <img className="carouselImg" alt="900x500" src={image}/>
       }
