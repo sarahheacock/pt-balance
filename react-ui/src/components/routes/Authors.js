@@ -37,7 +37,7 @@ const Authors = (props) => {
   return (
     <div className="main-content">
       <PageHeader className="head">About the Authors</PageHeader>
-      <div className="text-center content">
+      <div className="text-center main-content">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row className="clearfix">
 

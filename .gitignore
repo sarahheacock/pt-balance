@@ -1,8 +1,8 @@
 # Node build artifacts
 node_modules
 npm-debug.log
-uploads
-#configure
+#uploads
+configure
 
 # Local development
 *.env

@@ -10,12 +10,11 @@ import { cloudName } from '../../data/data';
 
 const News = (props) => {
   const events = props.data.map((event, index) => (
-      <div className="content" key={`news${index}`}>
-        <div className="">
+      <div className="" key={`news${index}`}>
           <Row className="clearfix content">
             <h3>{event.title}</h3>
             <Row className="clearfix">
-              <Col sm={9} className="">
+              <Col sm={8} className="">
                 <p>{event.description}</p>
                 <p><b>{moment(event.createdAt).format('LL')}</b></p>
               </Col>
@@ -47,7 +46,6 @@ const News = (props) => {
             </div>
           </Row>
           <hr />
-        </div>
       </div>
     ));
 

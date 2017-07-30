@@ -10,7 +10,7 @@ const Publications = (props) => {
     <div key={`article${index}`}>
 
         <div className="content">
-          <div className="well well-option">
+
             <h3>{article.title}</h3>
             <p>{article.description}</p>
             <p><b>{(Array.isArray(article.authors)) ? article.authors.join(', ') : article.authors}</b></p>
@@ -34,7 +34,7 @@ const Publications = (props) => {
                 title={"Delete"}
               />
             </div>
-          </div>
+
         </div>
 
     </div>

@@ -9,9 +9,9 @@ import { cloudName } from '../../../data/data';
 const Nancy = (props) => {
 
   return (
-    <div className="main-content">
-      <h3 className="content">{props.data.name}</h3>
-      <Row className="clearfix content">
+    <div className="content">
+      <h3>{props.data.name}</h3>
+      <Row className="clearfix">
 
         <Col sm={8}>
           <div className="about">
