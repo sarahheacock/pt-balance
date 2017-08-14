@@ -36,7 +36,10 @@ const Home = (props) => {
           crop="fill"/>:
         <img className="carouselImg" alt="900x500" src={image}/>
       }
-
+      <Carousel.Caption>
+        <h3 className="brand caption">PBS</h3>
+        <p className="caption">{"Dr. Nancy Darr and Dr. Mary Rose Franjoine's research space."}</p>
+      </Carousel.Caption>
     </Carousel.Item>
   ));
 
