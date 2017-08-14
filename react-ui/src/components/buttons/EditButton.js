@@ -94,7 +94,14 @@ const EditButton = (props) => {
         <i className="fa fa-envelope" aria-hidden="true"></i>
       </a> :
       ((modalTitle === "Login") ?
-        <NavItem onClick={(e) => { if(e) e.preventDefault(); props.updateState(content); }} >{modalTitle}</NavItem> :
+        <a href="#" onClick={(e) => {
+          if(e) e.preventDefault();
+          props.updateState(content);
+        }} >
+          <span className="brand"><i className="fa fa-child large-icon" aria-hidden="true"></i>
+            {"PBS"}
+          </span>
+        </a> :
         <Button bsStyle={style} onClick={(e) => { if(e) e.preventDefault(); props.updateState(content); }}>
           {props.title}
         </Button>)

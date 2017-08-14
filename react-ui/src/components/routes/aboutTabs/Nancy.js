@@ -11,12 +11,13 @@ const Nancy = (props) => {
   return (
     <div className="content">
       <h3>{props.data.name}</h3>
+      {(props.data.education.split('\n')).map((p, i) => <p key={`About0${i}`}><b>{p}<br /></b></p>)}
+      <br />
       <Row className="clearfix">
 
         <Col sm={8}>
           <div className="about">
-            <p><b>{props.data.education}</b></p>
-            <p>{props.data.summary}</p>
+            {(props.data.summary.split('\n')).map((p, i) => <p key={`About1${i}`}>{p}<br /></p>)}
           </div>
         </Col>
         <Col sm={4}>

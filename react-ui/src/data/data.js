@@ -11,7 +11,7 @@ export const errorStatus = {
   formError: '* Fill out required fields',
   loadError: "Unable to load data",
   loginError: "Username and/or password not found.",
-  messageSuccess: 'Message Sent! I will get back to you as soon as I can.'
+  messageSuccess: 'Message Sent! We will get back to you as soon as possible.'
 }
 
 //================page initial state when loaded==================================

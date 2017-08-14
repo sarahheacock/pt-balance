@@ -12,7 +12,11 @@ cloudinary.config({
 });
 
 const multer  = require('multer');
+const autoReap  = require('multer-autoreap');
 const upload = multer({ dest: 'uploads/' });
+
+autoReap.options.reapOnError = false;
+fileRoutes.use(autoReap);
 
 // var multerCloudinary = require('multer-cloudinary');
 // var cloudinaryStorage = multerCloudinary({cloudinary: Cloudinary});
@@ -20,11 +24,15 @@ const upload = multer({ dest: 'uploads/' });
 //======================EDIT SECTIONS==============================
 
 fileRoutes.post("/", upload.single('file'), (req, res) => {
- console.log("file", req.file)
+
  cloudinary.uploader.upload(req.file.path, (error, result) => {
    console.log(result);
    if(error) res.json(error);
-   res.json(result);
+
+   res.on('autoreap', (reapedFile) => {
+     console.log("reap", reapedFile);
+     res.json(result);
+   });
  });
 
 });

@@ -22,6 +22,7 @@ import { cloudName } from '../../data/data';
 // };
 
 const Home = (props) => {
+  // const height = windowInnerHeight() - homeHeight() - navHeight();
 
   const carouselImg = props.data[0]["carousel"].map((image, index) => (
     <Carousel.Item key={image}>
@@ -30,8 +31,8 @@ const Home = (props) => {
           id={`carImg${index}`}
           cloudName={cloudName}
           publicId={image}
-          width="900"
-          height="500"
+          height="400"
+          width="600"
           crop="scale"/>:
         <img className="carouselImg" alt="900x500" src={image}/>
       }
@@ -56,7 +57,8 @@ const Home = (props) => {
 
           <div className="home-content">
             <div className="content">
-              <p className="summary">{props.data[0]["summary"]}</p>
+              <h3 className="text-center">Pediatric Balance Scale</h3><br />
+              {(props.data[0]["summary"].split('\n')).map((p, i) => <p key={`home0${i}`} className="summary text-center">{p}<br /></p>)}
               <div className="text-center">
                 <EditButton
                   user={props.user}

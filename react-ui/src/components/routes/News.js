@@ -15,7 +15,7 @@ const News = (props) => {
             <h3>{event.title}</h3>
             <Row className="clearfix">
               <Col sm={8} className="">
-                <p>{event.description}</p>
+                {(event.description.split('\n')).map((p, i) => <p key={`event0${i}`}>{p}<br /></p>)}
                 <p><b>{moment(event.createdAt).format('LL')}</b></p>
               </Col>
               <Col sm={3} className="">

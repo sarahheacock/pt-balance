@@ -40,21 +40,23 @@ const Authors = (props) => {
         <PageHeader className="head-title">About the Authors</PageHeader>
       </div>
       <div className="text-center main-content">
-        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-          <Row className="clearfix">
+        <div className="content">
+          <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+            <Row className="clearfix">
 
-            <Nav bsStyle="tabs">
-              {tabs}
-            </Nav>
+              <Nav bsStyle="tabs">
+                {tabs}
+              </Nav>
 
-            <Route exact path="/authors/" render={ () =>
-              <Redirect to={`/authors/${link(props.data[0].name)}`} /> }
-            />
+              <Route exact path="/authors/" render={ () =>
+                <Redirect to={`/authors/${link(props.data[0].name)}`} /> }
+              />
 
-            {routes}
+              {routes}
 
-          </Row>
-        </Tab.Container>
+            </Row>
+          </Tab.Container>
+          </div>
         </div>
     </div>
   );

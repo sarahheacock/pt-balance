@@ -54,29 +54,24 @@ class Header extends React.Component {
         <Navbar className="navigation" id="navigation">
           <Navbar.Header>
             <Navbar.Brand>
-              <div><span className="brand">PBS</span></div>
+              <div>{(!(!this.props.user.token))?
+                <a href="#" onClick={this.logout}>
+                  Logout
+                </a> :
+                <EditButton
+                  user={this.props.user}
+                  dataObj={{}}
+                  updateState={this.props.updateState}
+                  title="Login"
+                  length={2}
+                />}</div>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
 
           <Navbar.Collapse>
-            <Nav className="ml-auto" navbar>
+            <Nav className="ml-auto" navbar pullRight>
               {navItems}
-            </Nav>
-            <Nav pullRight>
-              <LinkContainer to="#">
-                {(!(!this.props.user.token))?
-                  <NavItem onClick={this.logout}>
-                    Logout
-                  </NavItem> :
-                  <EditButton
-                    user={this.props.user}
-                    dataObj={{}}
-                    updateState={this.props.updateState}
-                    title="Login"
-                    length={2}
-                  />}
-              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

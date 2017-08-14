@@ -12,7 +12,7 @@ const Publications = (props) => {
         <div className="content">
 
             <h3>{article.title}</h3>
-            <p>{article.description}</p>
+            {(article.description.split('\n')).map((p, i) => <p key={`publications0${i}`}>{p}<br /></p>)}
             <p><b>{(Array.isArray(article.authors)) ? article.authors.join(', ') : article.authors}</b></p>
             <p><b>{moment(article.date).format('LL')}</b></p>
             <div className="text-center">
