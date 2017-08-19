@@ -25,17 +25,14 @@ const Home = (props) => {
   // const height = windowInnerHeight() - homeHeight() - navHeight();
 
   const carouselImg = props.data[0]["carousel"].map((image, index) => (
-    <Carousel.Item key={image}>
-      {(!image.includes("http")) ?
-        <Image className='carImg'
-          id={`carImg${index}`}
-          cloudName={cloudName}
-          publicId={image}
-          height="450"
-          width="1200"
-          crop="fill"/>:
-        <img className="carouselImg" alt="900x500" src={image}/>
-      }
+    <Carousel.Item key={`carImg${index}`}>
+      <Image className='carImg'
+        id={`carImg${index}`}
+        cloudName={cloudName}
+        publicId={image}
+        height="450"
+        width="1200"
+        crop="fill"/>
       <Carousel.Caption>
         <h3 className="brand caption">PBS</h3>
         <p className="caption">{"Dr. Nancy Darr and Dr. Mary Rose Franjoine's research space."}</p>
@@ -61,7 +58,7 @@ const Home = (props) => {
           <div className="home-content">
             <div className="content">
               <h3 className="text-center">Pediatric Balance Scale</h3><hr />
-              {(props.data[0]["summary"].split('\n')).map((p, i) => <p key={`home0${i}`} className="summary text-center">{p}<br /></p>)}
+              {(props.data[0]["summary"].split('\n')).map((p, i) => <p key={`home0${i}`} className="summary">{p}<br /></p>)}
               <div className="text-center">
                 <EditButton
                   user={props.user}

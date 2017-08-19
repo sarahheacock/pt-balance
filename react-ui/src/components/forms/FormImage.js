@@ -27,10 +27,7 @@ const FormImage = (props) => {
             <Row className="clearfix">
               <Row className="clearfix">
                 <Col sm={6} className="text-center">
-                  {(!props.value.includes("http")) ?
-                    <Image cloudName={cloudName} publicId={props.value} width="200" crop="scale"/>:
-                    <img className="sampleImg" src={props.value} alt={props.value}/>
-                  }
+                  <Image cloudName={cloudName} publicId={props.value} width="200" crop="scale"/>
                 </Col>
                 <Col sm={2} className="text-center">
                   {(props.group === "carousel") ?
