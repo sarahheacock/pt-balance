@@ -4,35 +4,35 @@ export const blogID = "593d5eca1e17e126ddff6d0a";
 export const cloudName = "dhd1eov8v";
 
 //================possible error messages=======================================
-export const errorStatus = {
-  expError: "Session expired. Log back in again to continue.",
-  deleteError: "You cannot delete all entries. Deleting all entries will cause errors",
-  messageError: 'Unable to send message',
-  formError: '* Fill out required fields',
-  loadError: "Unable to load data",
-  loginError: "Username and/or password not found.",
-  messageSuccess: 'Message Sent! We will get back to you as soon as possible.'
-}
+// export const errorStatus = {
+//   expError: "Session expired. Log back in again to continue.",
+//   deleteError: "You cannot delete all entries. Deleting all entries will cause errors",
+//   messageError: 'Unable to send message',
+//   formError: '* Fill out required fields',
+//   loadError: "Unable to load data",
+//   loginError: "Username and/or password not found.",
+//   messageSuccess: 'Message Sent! We will get back to you as soon as possible.'
+// }
 
 //================page initial state when loaded==================================
-export const initialData = {
-  home: [],
-  authors: [],
-  publications: [],
-  news: []
-};
-export const initialMessage = '';
-export const initialUser = {
-  username: '',
-  password: '',
-  admin: false,
-  token: ""
-};
-export const initialEdit = {
-	modalTitle: '',
-	url: '',
-	dataObj: {} // will be copy of data we want to edit
-};
+// export const initialData = {
+//   home: [],
+//   authors: [],
+//   publications: [],
+//   news: []
+// };
+// export const initialMessage = '';
+// export const initialUser = {
+//   // username: '',
+//   // password: '',
+//   // admin: false,
+//   token: ""
+// };
+// export const initialEdit = {
+// 	modalTitle: '',
+// 	url: '',
+// 	dataObj: {} // will be copy of data we want to edit
+// };
 
 
 // export const pageRoutes = [...Object.keys(initialData), 'login'];
@@ -62,6 +62,7 @@ export const defaultData = {
     title: '',
     description: '',
     image: defaultImage,
+    createdAt: new Date(),
   }
 }
 
@@ -114,6 +115,11 @@ export const formData = {
   date: {
     type: 'text',
     placeholder: 'Date Published',
+    componentClass: 'input'
+  },
+  createdAt: {
+    type: 'text',
+    placeholder: 'Date of Activity',
     componentClass: 'input'
   }
 }

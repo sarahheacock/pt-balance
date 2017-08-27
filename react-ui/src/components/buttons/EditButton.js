@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, NavItem } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import moment from 'moment';
 
 import { blogID, initialEdit, messageData, loginData, defaultData } from '../../data/data';
+const happyChildren = require('./happyChildren.svg');
 
 
 const EditButton = (props) => {
@@ -40,11 +41,12 @@ const EditButton = (props) => {
       Object.keys(defaultData[page]).forEach((key) => {
 
         if(props.title === "Edit"){ //copy everything
-          if(key === "date") result[key] = moment(props.dataObj[key]).format('LL');
+          if(key === "date" || key === "createdAt") result[key] = moment(props.dataObj[key]).format('LL');
           else result[key] = props.dataObj[key];
         }
         else if(props.title === "Add"){ //initialize everything to defaultData
-          result[key] = defaultData[page][key];
+          if(key === "createdAt") result[key] = moment(defaultData[page][key]).format('LL');
+          else result[key] = defaultData[page][key];
         }
 
       });
@@ -55,18 +57,18 @@ const EditButton = (props) => {
 
     dataObj = Object.assign({}, result);
 
-    if(props.title === "Delete") url = `/admin/edit/${blogID}/${page}/${props.dataObj._id}?token=${props.user.token}`;
-    else if(props.title === "Add") url = `/admin/edit/${blogID}/${page}?token=${props.user.token}`;
-    else if(props.title === "Edit") url = `/admin/edit/${blogID}/${page}/${props.dataObj._id}?token=${props.user.token}`;
+    if(props.title === "Delete") url = `/admin/${blogID}/${page}/${props.dataObj._id}?token=${props.user.token}`;
+    else if(props.title === "Add") url = `/admin/${blogID}/${page}?token=${props.user.token}`;
+    else if(props.title === "Edit") url = `/admin/${blogID}/${page}/${props.dataObj._id}?token=${props.user.token}`;
 
   }
   else if(props.title === "Login" || props.title === "Login ") {
     Object.keys(loginData).forEach((k) => dataObj[k] = '');
-    url = "/admin/login";
+    url = "/login";
   }
   else if(props.title === "Send Message"){
     Object.keys(messageData).forEach((k) => dataObj[k] = '');
-    url = "/user/sayHello";
+    url = "/sayHello";
   }
 
 
@@ -98,8 +100,9 @@ const EditButton = (props) => {
           if(e) e.preventDefault();
           props.updateState(content);
         }} >
-          <span className="brand"><i className="fa fa-child large-icon" aria-hidden="true"></i>
-            {"PBS"}
+          <span className="brand">
+            <Image width={35} src={happyChildren}/>
+            {" PBS"}
           </span>
         </a> :
         <Button bsStyle={style} onClick={(e) => { if(e) e.preventDefault(); props.updateState(content); }}>

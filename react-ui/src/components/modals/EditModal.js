@@ -48,19 +48,33 @@ class EditModal extends React.Component {
   }
 
 
-  onFormAdd = (files) => {
-    let newEdit = {...this.props.edit};
+  onFormAdd = (files, rejected) => {
+    const name = (window.location.pathname === "/") ?
+      "carousel":
+      (window.location.pathname === "/publications")?
+        "link":
+        "image";
 
-    const file = new File([files[0]], files[0].name, {
-      type: "image/jpeg",
-    });
-    // console.log(files);
+    if(rejected[0]){
+      this.props.updateState({"message": (name === "link") ? "File must be pdf." : "Image must be png, jpg, or jpeg."})
+    }
+    else {
+      let newEdit = {...this.props.edit};
+      const file = new File([files[0]], files[0].name, {
+        type: (name === "link") ? "application/pdf" : "image/jpeg",
+      });
 
-    this.props.uploadFile({
-      url: `/admin/file?token=${this.props.user.token}`,
-      edit: newEdit,
-      name: (window.location.pathname === "/") ? "carousel" : "image"
-    }, file);
+      let formData = new FormData();
+      formData.append('file', file);
+      console.log('file', formData.get('file'));
+
+      this.props.uploadFile({
+        url: `/file?token=${this.props.user.token}`,
+        edit: newEdit,
+        name: name
+      }, formData);
+    }
+
   }
 
 

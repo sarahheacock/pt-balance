@@ -25,10 +25,10 @@ const Footer = (props) => {
 
       <div className="foot-content">
         <Row className="clearfix">
-          <i>Whether you have a question about our research
-          or have any suggestions for us, we would love to hear from you!
+          <i>If you have a question about the PBS, our research,
+          or suggestions for us, we would love to hear from you!
           Click on the envelope below to leave us a message or find us
-          through linkedin and facebook. Thank you!</i>
+          through linkedin and facebook. No spam or soliciting please. Thank you!</i>
           <hr />
           <Col sm={6} className="text-center">
             <h3>Around the Web</h3>
@@ -56,7 +56,11 @@ const Footer = (props) => {
           <hr />
         </Row>
       </div>
+      <div><i>Icons made by <a className="url" href="http://www.freepik.com" title="Freepik">Freepik</a> from <a className="url" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a className="url" href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></i></div>
+      <div><i>Web Designs by Sarah Heacock <a href="https://murmuring-harbor-45435.herokuapp.com/"><i className="fa fa-coffee"></i></a></i></div>
+      <br />
       </div>
+
     </footer>
 
   );

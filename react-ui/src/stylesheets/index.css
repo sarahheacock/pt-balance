@@ -10,7 +10,7 @@ body {
 
 
 .brand {
-  color: #E37222;
+  color: #EEAA7B;
   font-family: 'Pacifico';
 }
 
@@ -313,11 +313,19 @@ i {
 }
 
 .ai:hover{
-  color: #3b5998;
+  color: #E37222;
 }
 
 .fa {
-  color: #EEAA7B
+  color: #EEAA7B;
+}
+
+.fa-university {
+  padding: 2%;
+}
+
+.fa-paper-plane {
+  color: White;
 }
 
 .large-icon{
@@ -325,20 +333,26 @@ i {
   margin-right: 10px;
 }
 
-.fa-facebook-square:hover{
+.fa:hover{
+  color: #E37222;
+}
+
+/*.fa-facebook-square:hover{
   color: #3b5998;
-  /*background-color: White;*/
 }
 
 .fa-linkedin-square:hover{
   color: #0077B5;
-  /*background-color: White;*/
 }
 
 .fa-envelope:hover{
   color: rgb(64, 153, 255);
-}
+}*/
 
 .link:hover{
   color: #53868B;
+}
+
+.url{
+  color: WhiteSmoke;
 }

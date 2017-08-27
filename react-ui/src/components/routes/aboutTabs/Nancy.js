@@ -10,7 +10,12 @@ const Nancy = (props) => {
 
   return (
     <div className="content">
-      <h3>{props.data.name}</h3>
+      <h3>{props.data.name}<a href="#" onClick={(e) =>{
+        if(e) e.preventDefault();
+        if(props.data.name.includes("Rose")) window.open("http://www.daemen.edu/academics/areas-study/physical-therapy/faculty");
+      }}>
+        <i className="fa fa-university"></i>
+      </a></h3>
       {(props.data.education.split('\n')).map((p, i) => <p key={`About0${i}`}><b>{p}<br /></b></p>)}
       <br />
       <Row className="clearfix">

@@ -5,15 +5,30 @@ import { Form, ControlLabel, FormGroup } from 'react-bootstrap';
 
 import SubmitButtonSet from '../buttons/SubmitButtonSet';
 import FormImage from './FormImage.js';
-import { errorStatus } from '../../data/data';
+import { messages, notRequired } from '../../../../data/data';
+
 
 
 
 const upper = (label) => {
-  return `${label.charAt(0).toUpperCase()}${label.slice(1)}*`;
+  const required = notRequired.includes(label);
+  if(!required) return `${label.charAt(0).toUpperCase()}${label.slice(1)}*`;
+  else return `${label.charAt(0).toUpperCase()}${label.slice(1)}`;
 };
 
 const EditForm = (props) => {
+  const check = (k) => {
+    if(props.message === messages.inputError && !props.edit.dataObj[k] && !notRequired.includes(k)){
+      return 'warning';
+    }
+    if(props.message === messages.emailError && k === "email"){
+      return 'warning';
+    }
+    if(props.message === messages.phoneError && k === "phone"){
+      return 'warning';
+    }
+    return null;
+  }
 
   //======ALL OF THE FORM GROUPS===================================
   const formGroups = (props.edit.modalTitle === "Delete Content") ?
@@ -50,18 +65,18 @@ const EditForm = (props) => {
       // if dataObj[k] is an image, provide dropzone
       return (
         <div key={k}>
-          <FormGroup validationState={(props.message === errorStatus.formError && dataObj[k] < 1) ? 'warning': null}>
+          <FormGroup validationState={check(k)}>
             <ControlLabel>{upper(k)}</ControlLabel>
             {formItem}
           </FormGroup>
 
           <div className="text-center">
-            {(k === "carousel" || k === "image") ?
+            {(k === "carousel" || k === "image" || k === "link") ?
               <Dropzone
                 multiple={false}
-                accept="image/*"
+                accept={(k === "link") ? "application/pdf" : "image/*"}
                 onDrop={props.formAdd.bind(this)}>
-                <p>Drop an image or click to select a file to upload.</p>
+                <p>{(k === "link") ? "Drop a pdf, click to select a file to upload, or provide your own url above." : "Drop an image or click to select a file to upload."}</p>
               </Dropzone>:
               <div></div>}
           </div>

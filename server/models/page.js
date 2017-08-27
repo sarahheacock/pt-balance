@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const messages = require('../../data/data').messages;
+
 const sortAuthors = function(a, b){
   //negative if a before b
   //0 if unchanged order
@@ -15,8 +17,8 @@ const sortPublications = function(a, b){
 };
 
 const sortNews = function(a, b){
-  if(b.date === a.date) return a.title - b.title;
-  return b.date - a.date;
+  if(b.createdAt === a.createdAt) return a.title - b.title;
+  return b.createdAt - a.createdAt;
 };
 
 const HomeSchema = new Schema({
@@ -68,45 +70,57 @@ const PageSchema = new Schema({
 });
 
 // authenticate input against database documents
-PageSchema.statics.authenticate = function(username, password, callback) {
+// authenticate input against database documents
+PageSchema.statics.authenticate = (username, password, callback) => {
   Page.findOne({ username: username })
-      .exec(function (error, user) {
-        if (error) {
-          return callback(error);
+    .exec((error, user) => {
+      if (error) {
+        return callback(error);
+      }
+      else if (!user) {
+        return callback(messages.usernameError);
+      }
+      bcrypt.compare(password, user.password , (error, result) => {
+        if (result === true){
+          return callback(null, user);
         }
-        else if ( !user ) {
-          let err = new Error('User not found.');
-          err.status = 401;
-          return callback(err);
+        else {
+          return callback(messages.passError);
         }
-        bcrypt.compare(password, user.password , function(error, result) {
-          if (result === true) {
-            return callback(null, user);
-          } else {
-            return callback();
-          }
-        })
-      });
+      })
+    });
 }
 
-// hash password before saving to database
+// PageSchema.statics.authenticate = function(username, password, callback) {
+//   Page.findOne({ username: username })
+//       .exec(function (error, user) {
+//         if (error) {
+//           return callback(error);
+//         }
+//         else if ( !user ) {
+//           let err = new Error('User not found.');
+//           err.status = 401;
+//           return callback(err);
+//         }
+//         bcrypt.compare(password, user.password , function(error, result) {
+//           if (result === true) {
+//             return callback(null, user);
+//           } else {
+//             return callback();
+//           }
+//         })
+//       });
+// }
+//
+// // hash password before saving to database
 PageSchema.pre('save', function(next) {
   const page = this;
-  if(page.password.length <= 16){
-    bcrypt.hash(page.password, 10, function(err, hash) {
-      if (err) {
-        return next(err);
-      }
-      page.password = hash;
-      next();
-    })
-  }
-  else{
-    if(page.authors !== undefined) page.authors.sort(sortAuthors);
-    if(page.publications !== undefined) page.publications.sort(sortPublications);
-    if(page.news !== undefined) page.news.sort(sortNews);
-    next();
-  }
+
+  if(page.authors !== undefined) page.authors.sort(sortAuthors);
+  if(page.publications !== undefined) page.publications.sort(sortPublications);
+  if(page.news !== undefined) page.news.sort(sortNews);
+
+  next();
 });
 
 

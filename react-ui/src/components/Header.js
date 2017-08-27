@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { blogID } from '../data/data';
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Nav, Navbar, NavItem, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import EditButton from './buttons/EditButton';
-import { initialEdit, initialUser, initialMessage } from '../data/data';
+import { initialMessage, initialEdit, initialUser } from '../../../data/data';
+
 
 
 class Header extends React.Component {
@@ -17,7 +18,7 @@ class Header extends React.Component {
   }
 
   componentDidMount(){
-    this.props.getData(`/user/${blogID}`);
+    this.props.getData(`/admin/${blogID}`);
   }
 
   logout = (e) => {

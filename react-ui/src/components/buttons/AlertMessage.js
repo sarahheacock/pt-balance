@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
 
-import { errorStatus } from '../../data/data';
+import { messages } from '../../../../data/data';
 
 const AlertMessage = (props) => {
-  const style = (props.message === errorStatus.messageSuccess) ? "info" : "warning";
+  const style = (props.message === messages.messageSent) ? "info" : "warning";
 
   return (
     <div className="text-center">

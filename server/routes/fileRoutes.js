@@ -4,6 +4,7 @@ const fileRoutes = express.Router();
 const cloudinary = require('cloudinary');
 const config = require('../configure/config');
 
+// const mid = require('../middleware/middleware');
 
 cloudinary.config({
   cloud_name: config.cloud_name,
@@ -24,16 +25,15 @@ fileRoutes.use(autoReap);
 //======================EDIT SECTIONS==============================
 
 fileRoutes.post("/", upload.single('file'), (req, res) => {
+  if(!req.file) res.json({"message": "Unable to upload."});
 
- cloudinary.uploader.upload(req.file.path, (error, result) => {
-   console.log(result);
-   if(error) res.json(error);
+  cloudinary.uploader.upload(req.file.path, (error, result) => {
+    if(error) res.json(error);
 
-   res.on('autoreap', (reapedFile) => {
-     console.log("reap", reapedFile);
-     res.json(result);
-   });
- });
+    res.on('autoreap', (reapedFile) => {
+      res.json(result);
+    });
+  });
 
 });
 

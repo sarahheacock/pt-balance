@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
-import { initialMessage, initialEdit, initialUser, errorStatus } from '../../data/data';
+import { initialMessage, initialEdit, initialUser, messages } from '../../../../data/data';
 
 import AlertMessage from './AlertMessage';
 import EditButton from './EditButton';
@@ -57,40 +57,39 @@ class SubmitButtonSet extends React.Component {
         "primary");
 
     return (
-      <div className="text-center">
-        <AlertMessage
-          message={this.props.message}
-        />
-        {
-          (this.props.message !== errorStatus.expError) ?
-            <div>
-              <Button className="edit" bsStyle={style} onClick={this.submit}>
-                {edit.modalTitle.replace(' Service', '').replace('Message', '')}
-                {(edit.modalTitle).includes('Send') ?
-                  <i className="fa fa-paper-plane" aria-hidden="true"></i>:
-                  <span></span>
-                }
-              </Button>
-              <Button className="edit" onClick={this.pop}>
-                {(this.props.message === errorStatus.messageSuccess) ? "Close" : "Cancel"}
-              </Button>
-            </div> :
-            <div>
-              <EditButton
-                user={this.props.user}
-                updateState={this.props.updateState}
-                dataObj={{}}
-                title="Login "
-                length={2}
-              />
-              <Button className="edit" onClick={this.logout}>
-                Close
-              </Button>
-            </div>
-        }
-      </div>
-    );
-  }
+        <div className="text-center">
+          <AlertMessage
+            message={this.props.message}
+          />
+          {
+            (this.props.message !== messages.expError) ?
+              <div>
+                <Button bsStyle={style} onClick={this.submit}>
+                  {edit.modalTitle.replace(' Content', '').replace('Message', '')}
+                  {(edit.modalTitle).includes('Send') ?
+                    <i className="fa fa-paper-plane" aria-hidden="true"></i>:
+                    <span></span>
+                  }
+                </Button>
+                <Button onClick={this.pop}>
+                  {(this.props.message === messages.messageSent) ? "Close" : "Cancel"}
+                </Button>
+              </div> :
+              <div>
+                <EditButton
+                  user={this.props.user}
+                  updateState={this.props.updateState}
+                  dataObj={{}}
+                  title="Login "
+                />
+                <Button onClick={this.logout}>
+                  Close
+                </Button>
+              </div>
+          }
+        </div>
+      );
+    }
 }
 
 

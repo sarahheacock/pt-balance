@@ -5,6 +5,7 @@ import { Image } from 'cloudinary-react';
 
 import EditButton from '../buttons/EditButton';
 import { cloudName } from '../../data/data';
+// import file from "./file.pdf";
 
 
 // const windowInnerHeight = () => Math.floor(window.innerHeight ||
@@ -20,6 +21,8 @@ import { cloudName } from '../../data/data';
 //   const main = document.getElementById('homePageHeader');
 //   return (main) ? Math.floor(main["scrollHeight"] || main["clientHeight"]) : 0;
 // };
+
+// <object width="400" height="400" data={file}></object>
 
 const Home = (props) => {
   // const height = windowInnerHeight() - homeHeight() - navHeight();

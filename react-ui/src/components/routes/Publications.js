@@ -17,7 +17,7 @@ const Publications = (props) => {
             <p><b>{moment(article.date).format('LL')}</b></p>
             <div className="text-center">
               <a className="text-center" href="#" onClick={(e) => { if(e) e.preventDefault(); window.open(article.link); }}>
-                <i className="ai ai-pubmed ai-3x"></i>
+                {(article.link.includes("pdf")) ? <i className="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i> : <i className="ai ai-pubmed ai-3x"></i>}
               </a>
             </div>
             <div className="text-center">

@@ -19,6 +19,7 @@ const News = (props) => {
                 <p><b>{moment(event.createdAt).format('LL')}</b></p>
               </Col>
               <Col sm={3} className="">
+                <div className="text-center">
                 {(!event.image.includes("http")) ?
                   <Image
                     cloudName={cloudName}
@@ -28,6 +29,7 @@ const News = (props) => {
                     crop="scale"/>:
                   <img alt="900x500" src={event.image}/>
                 }
+                </div>
               </Col>
             </Row>
             <div className="text-center">
